@@ -13,7 +13,8 @@ tools:context="com.csm117.digitalbazaar.PaymentActivity">
 <LinearLayout
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:weightSum="1">
 
     <TextView
         android:text="This is payment view (W.I.P)"
@@ -73,6 +74,31 @@ tools:context="com.csm117.digitalbazaar.PaymentActivity">
         android:layout_height="wrap_content"
         android:id="@+id/button"
         android:backgroundTint="@android:color/holo_green_dark" />
+
+    <TextView
+        android:text="test saving credit card info. Click this button will save it to database"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/testSaveLabel" />
+
+    <Button
+        android:text="Test Save"
+        android:layout_width="132dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/testSaveButton" />
+
+    <TextView
+        android:text="test processing credit card info. Click this button will charge $0.01 to credit card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/testProcessLabel" />
+
+    <Button
+        android:text="Test Process"
+        android:layout_width="136dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/testProcessButton"
+        android:layout_weight="0.21" />
 
 </LinearLayout>
 
