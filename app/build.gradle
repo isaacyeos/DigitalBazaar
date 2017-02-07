@@ -30,5 +30,6 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:25.1.1'
     compile 'com.facebook.android:facebook-android-sdk:[4,5)'
+    compile 'com.stripe:stripe-android:2.0.2'
     testCompile 'junit:junit:4.12'
 }
