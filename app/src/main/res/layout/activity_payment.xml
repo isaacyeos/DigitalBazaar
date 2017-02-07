@@ -34,7 +34,7 @@ tools:context="com.csm117.digitalbazaar.PaymentActivity">
         android:inputType="number"
         android:ems="10"
         android:id="@+id/creditcardNumberEdit"
-        android:text="Credit Card Number" />
+        android:hint="Credit Card Number" />
 
     <EditText
         android:layout_width="match_parent"
@@ -42,7 +42,7 @@ tools:context="com.csm117.digitalbazaar.PaymentActivity">
         android:inputType="date"
         android:ems="10"
         android:id="@+id/expDateEdit"
-        android:text="Expired date" />
+        android:hint="Expired date" />
 
     <EditText
         android:layout_width="match_parent"
@@ -50,15 +50,15 @@ tools:context="com.csm117.digitalbazaar.PaymentActivity">
         android:inputType="number"
         android:ems="10"
         android:id="@+id/ccvEdit"
-        android:text="CCV" />
+        android:hint="CCV" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:text="Name on card"
         android:ems="10"
-        android:id="@+id/nameOnCardEdit" />
+        android:id="@+id/nameOnCardEdit"
+        android:hint="Name on card" />
 
     <EditText
         android:layout_width="match_parent"
@@ -66,7 +66,7 @@ tools:context="com.csm117.digitalbazaar.PaymentActivity">
         android:inputType="textPostalAddress"
         android:ems="10"
         android:id="@+id/billingAddressEdit"
-        android:text="Billing address" />
+        android:hint="Billing address" />
 
     <Button
         android:text="OK"
