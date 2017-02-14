@@ -33,17 +33,6 @@
             android:layout_alignParentStart="true"
             android:backgroundTint="@android:color/holo_blue_dark"
             android:layout_weight="0.08" />
-        <Button
-            android:text="User Information"
-            android:layout_width="299dp"
-            android:layout_height="58dp"
-            android:id="@+id/Profile"
-            android:onClick="clickButtonGoToPayment"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:backgroundTint="@android:color/holo_blue_dark"
-            android:layout_weight="0.08" />
 
         <Button
             android:text="Go to payment (W.I.P)"
@@ -68,7 +57,18 @@
             android:backgroundTint="@android:color/holo_blue_dark"
             android:layout_weight="0.08" />
         />
-    </LinearLayout>
+    </LinearLayout>        <Button
+    android:text="User Information"
+    android:layout_width="299dp"
+    android:layout_height="58dp"
+    android:id="@+id/Profile"
+    android:onClick="clickButtonGoToPayment"
+    android:layout_alignParentTop="true"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
+    android:backgroundTint="@android:color/holo_blue_dark"
+    android:layout_weight="0.08" />
+
     <![CDATA[
 
     />
