@@ -74,6 +74,9 @@ public class MainActivity extends AppCompatActivity {
                     if (user != null) {
                         // User is signed in
                         Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+                        //upon successful login direct to payment page
+                        goToDashBoard();
+
                     } else {
                         // User is signed out
                         Log.d(TAG, "onAuthStateChanged:signed_out");
@@ -204,6 +207,11 @@ public class MainActivity extends AppCompatActivity {
     public void clickButtonGoToPayment(View view) {
         // Do something in response to button
         Intent intent = new Intent(this, PaymentActivity.class);
+        startActivity(intent);
+    }
+
+    private void goToDashBoard() {
+        Intent intent = new Intent(this, DashBoard.class);
         startActivity(intent);
     }
 }
