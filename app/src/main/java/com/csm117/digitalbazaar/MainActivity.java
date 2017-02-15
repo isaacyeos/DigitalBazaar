@@ -32,7 +32,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String TAG = "FacebookLogin";
+    private static final String TAG = "FacebookLogin"; //final means constant - cannot change the value
     private TextView mStatusTextView;
     private TextView mDetailTextView;
     // [START declare_auth]
@@ -203,12 +203,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    /** Called when the user clicks the GoToPayment button */
-    public void clickButtonGoToPayment(View view) {
-        // Do something in response to button
-        Intent intent = new Intent(this, PaymentActivity.class);
-        startActivity(intent);
-    }
+
 
     private void goToDashBoard() {
         Intent intent = new Intent(this, DashBoard.class);

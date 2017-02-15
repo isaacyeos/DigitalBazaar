@@ -11,12 +11,12 @@
         android:layout_height="256dp"
         android:gravity="center">
 
-        <Button
-            android:text="Go to payment (W.I.P)"
-            android:layout_width="136dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/gotoPaymentButton"
-            android:onClick="clickButtonGoToPayment"/>
+        <!--<Button-->
+            <!--android:text="Go to payment (W.I.P)"-->
+            <!--android:layout_width="136dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:id="@+id/gotoPaymentButton"-->
+            <!--android:onClick="clickButtonGoToPayment"/>-->
 
         <com.facebook.login.widget.LoginButton
             android:id="@+id/login_button"
