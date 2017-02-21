@@ -1,5 +1,6 @@
 package com.csm117.digitalbazaar;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -42,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener mAuthListener;
     // [END declare_auth_listener]
     private CallbackManager mCallbackManager;
+    //to keep track of the child activity activity_dash_board
+    private static final int REQUEST_CODE_LOGIN = 0;
 
     @Override
         public void onCreate(Bundle savedInstanceState) {
@@ -97,6 +100,8 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onSuccess(LoginResult loginResult) {
                     Log.d(TAG, "facebook:onSuccess:" + loginResult);
+                    //on successful login, get facebook access token and exchange it with Firebase credential
+                    //function defined below
                     handleFacebookAccessToken(loginResult.getAccessToken());
                 }
 
@@ -141,6 +146,12 @@ public class MainActivity extends AppCompatActivity {
         // [START on_activity_result]
         @Override
         protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+            if(requestCode == REQUEST_CODE_LOGIN && resultCode == Activity.RESULT_OK)
+            {
+//                finishActivity(REQUEST_CODE_LOGIN);
+                signOut();
+                return;
+            }
             super.onActivityResult(requestCode, resultCode, data);
 
             // Pass the activity result back to the Facebook SDK
@@ -155,6 +166,9 @@ public class MainActivity extends AppCompatActivity {
 //        showProgressDialog();
             // [END_EXCLUDE]
 
+            //getToken() gets access token for signed in user
+            //exchange it for Firebase credential in AuthCredential credential
+            //authenticate with firebase using the Firebase credential
             AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
             mAuth.signInWithCredential(credential)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -182,7 +196,6 @@ public class MainActivity extends AppCompatActivity {
         public void signOut() {
             mAuth.signOut();
             LoginManager.getInstance().logOut();
-
             updateUI(null);
         }
 
@@ -207,6 +220,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void goToDashBoard() {
         Intent intent = new Intent(this, DashBoard.class);
-        startActivity(intent);
+        startActivityForResult(intent, REQUEST_CODE_LOGIN);
     }
 }
