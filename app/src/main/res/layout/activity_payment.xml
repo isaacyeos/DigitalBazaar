@@ -39,10 +39,18 @@ tools:context="com.csm117.digitalbazaar.PaymentActivity">
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="date"
+        android:inputType="number"
         android:ems="10"
-        android:id="@+id/expDateEdit"
-        android:hint="Expired date" />
+        android:id="@+id/expirationMonthEdit"
+        android:hint="Expiration month" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/expirationYearEdit"
+        android:hint="Expiration year"/>
 
     <EditText
         android:layout_width="match_parent"
@@ -98,6 +106,7 @@ tools:context="com.csm117.digitalbazaar.PaymentActivity">
         android:layout_width="136dp"
         android:layout_height="wrap_content"
         android:id="@+id/testProcessButton"
+        android:onClick="testProcess"
         android:layout_weight="0.21" />
 
 </LinearLayout>
