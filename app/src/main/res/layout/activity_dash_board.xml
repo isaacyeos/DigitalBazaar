@@ -61,6 +61,7 @@
             android:layout_width="299dp"
             android:layout_height="58dp"
             android:id="@+id/Logout"
+            android:onClick="clickButtonGoToLogin"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"

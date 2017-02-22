@@ -27,6 +27,11 @@ public class DashBoard extends AppCompatActivity {
         Intent intent = new Intent(this, MainFunc.class);
         startActivity(intent);
     }
-
+    /** Called when the user clicks the GoToPayment button */
+    public void clickButtonGoToLogin(View view) {
+        // Do something in response to button
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
 
 }

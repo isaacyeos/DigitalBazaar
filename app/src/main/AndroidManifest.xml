@@ -48,7 +48,8 @@
         </activity>
         <activity android:name=".BlankActivity" />
         <activity android:name=".MainFunc" />
-        <activity android:name=".Posting"></activity>
+        <activity android:name=".Posting" />
+        <activity android:name=".setting"></activity>
     </application>
 
 </manifest>
