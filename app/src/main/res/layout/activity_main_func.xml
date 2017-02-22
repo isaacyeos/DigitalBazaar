@@ -25,22 +25,11 @@
     </LinearLayout>
 
     <Button
-        android:text="Myinfo"
-        android:layout_width="90dp"
-        android:layout_height="52dp"
-        android:id="@+id/myinfo"
-        android:onClick="clickButtonGoToPayment"
-        android:backgroundTint="@android:color/holo_green_light"
-        android:layout_weight="0.05"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
-
-    <Button
         android:text="Post"
         android:layout_width="90dp"
         android:layout_height="52dp"
         android:id="@+id/Posting"
-        android:onClick="clickButtonGoToPayment"
+        android:onClick="clickButtonGoToPosting"
         android:backgroundTint="@android:color/holo_purple"
         android:layout_weight="0.05"
         android:layout_alignParentTop="true"
@@ -58,4 +47,15 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
+
+    <Button
+        android:text="setting"
+        android:layout_width="90dp"
+        android:layout_height="52dp"
+        android:id="@+id/setting"
+        android:onClick="clickButtonGoToPayment"
+        android:backgroundTint="@android:color/holo_green_light"
+        android:layout_weight="0.05"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

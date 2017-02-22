@@ -47,7 +47,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".BlankActivity" />
-        <activity android:name=".MainFunc"></activity>
+        <activity android:name=".MainFunc" />
+        <activity android:name=".Posting"></activity>
     </application>
 
 </manifest>

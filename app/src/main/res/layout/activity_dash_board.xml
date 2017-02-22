@@ -27,7 +27,7 @@
                 android:layout_width="299dp"
                 android:layout_height="58dp"
                 android:id="@+id/GEOLOC"
-                android:onClick="clickButtonGoToPayment"
+                android:onClick="clickButtonGoToMain"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
