@@ -68,21 +68,6 @@ tools:context="com.csm117.digitalbazaar.PaymentActivity">
         android:id="@+id/nameOnCardEdit"
         android:hint="Name on card" />
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPostalAddress"
-        android:ems="10"
-        android:id="@+id/billingAddressEdit"
-        android:hint="Billing address" />
-
-    <Button
-        android:text="OK"
-        android:layout_width="76dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/button"
-        android:backgroundTint="@android:color/holo_green_dark" />
-
     <TextView
         android:text="test saving credit card info. Click this button will save it to database"
         android:layout_width="match_parent"
