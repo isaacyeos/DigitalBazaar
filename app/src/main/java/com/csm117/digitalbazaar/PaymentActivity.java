@@ -65,4 +65,9 @@ public class PaymentActivity extends AppCompatActivity {
                 }
         );
     }
+
+    public void testSave(View view) {
+
+
+    }
 }

@@ -84,6 +84,7 @@ tools:context="com.csm117.digitalbazaar.PaymentActivity">
         android:text="test processing credit card info. Click this button will charge $0.01 to credit card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:onClick="testSave"
         android:id="@+id/testProcessLabel" />
 
     <Button
