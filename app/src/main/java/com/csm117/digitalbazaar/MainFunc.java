@@ -18,4 +18,16 @@ public class MainFunc extends AppCompatActivity {
         Intent intent = new Intent(this, Posting.class);
         startActivity(intent);
     }
+
+    public void clickButtonGoToSetting(View view) {
+        // Do something in response to button
+        Intent intent = new Intent(this, setting.class);
+        startActivity(intent);
+    }
+
+    public void clickButtonGoToMessages(View view) {
+        // Do something in response to button
+        Intent intent = new Intent(this, ChatActivity.class);
+        startActivity(intent);
+    }
 }
