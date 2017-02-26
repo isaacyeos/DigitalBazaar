@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "1052157375158-i0991aejor59lhp691pfcpoh5b9ug8vc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.csm117.digitalbazaar",
+            "certificate_hash": "b7d352cb427c245b4e218690782ee1f3204489ef"
+          }
+        },
+        {
+          "client_id": "1052157375158-69u4uuh7hs00kv5dsbfttdntf75unvai.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.csm117.digitalbazaar",
+            "certificate_hash": "f31f4aa2d19b76b1b4a541f7bebd95c4b7038696"
+          }
+        },
+        {
           "client_id": "1052157375158-s67cufu38agbevvc1lrssbfc8qf6k620.apps.googleusercontent.com",
           "client_type": 3
         }
