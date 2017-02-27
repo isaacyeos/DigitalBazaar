@@ -7,9 +7,15 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+
 import com.stripe.android.*;
 import com.stripe.android.model.Card;
 import com.stripe.android.model.Token;
+
+import com.google.firebase.auth.*;
+import com.google.firebase.database.*;
+import com.google.firebase.firebase_core.*;
+
 
 public class PaymentActivity extends AppCompatActivity {
 
@@ -67,7 +73,20 @@ public class PaymentActivity extends AppCompatActivity {
     }
 
     public void testSave(View view) {
+        // Get form info
+        EditText et = (EditText) findViewById(R.id.creditcardNumberEdit);
+        String cardNumber = et.getText().toString();
 
+        showMessage("Start Saving");
 
+        // Save token to database
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference payment = database.getReference();
+
+        // Add something to database
+        PaymentInformation p = new PaymentInformation(cardNumber, "someone");
+        payment.child("payment").child(cardNumber).setValue(p);
+
+        showMessage("Done Saving");
     }
 }

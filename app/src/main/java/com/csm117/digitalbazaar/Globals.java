@@ -1,10 +1,12 @@
 package com.csm117.digitalbazaar;
 
+import com.google.firebase.auth.*;
+
 public class Globals {
     private static Globals instance;
 
     // Global variable
-    public int data;
+    public AuthCredential firebaseAuthCredential;
 
     // Restrict the constructor from being instantiated
     private Globals(){}
