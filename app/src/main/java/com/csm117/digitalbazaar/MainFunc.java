@@ -27,7 +27,7 @@ public class MainFunc extends AppCompatActivity {
 
     public void clickButtonGoToMessages(View view) {
         // Do something in response to button
-        Intent intent = new Intent(this, ChatActivity.class);
+        Intent intent = new Intent(this, ChatMainActivity.class);
         startActivity(intent);
     }
 }

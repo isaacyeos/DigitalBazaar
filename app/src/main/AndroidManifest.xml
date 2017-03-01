@@ -53,7 +53,8 @@
         <activity android:name=".Posting" />
         <activity android:name=".setting" />
         <activity android:name=".ItemView" />
-        <activity android:name=".Verfication"></activity>
+        <activity android:name=".Verfication" />
+        <activity android:name=".ChatMainActivity"></activity>
     </application>
 
 </manifest>
