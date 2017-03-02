@@ -1,5 +1,6 @@
 package com.csm117.digitalbazaar;
 
+import android.media.Image;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,11 +21,19 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.UploadTask;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.util.Base64;
+import android.widget.ImageView;
+
+import java.io.ByteArrayOutputStream;
 
 public class Posting extends AppCompatActivity implements View.OnClickListener{
 
     private static final int Result_load_image = 1;
-    ImageView imageToupload,DownloadedImage;
+    private ImageView imageToupload;
     Button bUploadImage;
     private StorageReference mStorage;
 
@@ -32,11 +41,11 @@ public class Posting extends AppCompatActivity implements View.OnClickListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_posting);
-        imageToupload =(ImageView)  findViewById(R.id.imagetoupload);
+        imageToupload =(ImageView)  findViewById(R.id.imageToupload);
         //DownloadedImage =(ImageView)  findViewById(R.id.resultimage);
-        bUploadImage =(Button) findViewById(R.id.uploadbutton);
+        bUploadImage =(Button) findViewById(R.id.bUploadImage);
         mStorage = FirebaseStorage.getInstance().getReference();
-        imageToupload.setOnClickListener(this);
+        //imageToupload.setOnClickListener(this);
         bUploadImage.setOnClickListener(this);
     }
     private void showMessage(CharSequence text) {
@@ -54,18 +63,23 @@ public class Posting extends AppCompatActivity implements View.OnClickListener{
         String price = et1.getText().toString();
         EditText et2 = (EditText) findViewById(R.id.description);
         String description = et2.getText().toString();
+        //imageToupload =(ImageView)  findViewById(R.id.imageToupload);
+        imageToupload.buildDrawingCache();
+        Bitmap bitmap = imageToupload.getDrawingCache();
+        ByteArrayOutputStream stream=new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 90, stream);
+        byte[] image=stream.toByteArray();
+       // System.out.println("byte array:"+image);
+        String Imaged = Base64.encodeToString(image, 0);
 
         // Save token to database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference Posts = database.getReference();
 
         // Add something to database
-        PostInfo p = new PostInfo(topic, "someone");
+        //PostInfo p = new PostInfo(topic, "someone");
+        PostInfo p = new PostInfo(topic,price,description,Imaged);
         Posts.child("posts").child(topic).setValue(p);
-        PostInfo p1 = new PostInfo(price, "someone");
-        Posts.child("posts").child(price).setValue(p1);
-        PostInfo p2 = new PostInfo(description, "someone");
-        Posts.child("posts").child(description).setValue(p2);
 
         showMessage("Done Posting");
     }
@@ -74,13 +88,14 @@ public class Posting extends AppCompatActivity implements View.OnClickListener{
     public void onClick(View v) {//ctrl+i
         switch(v.getId())
         {
-            case R.id.imagetoupload:
+            case R.id.bUploadImage:
                 //Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 Intent intent = new Intent(Intent.ACTION_PICK);
                 intent.setType("image/*");
                 //startActivityForResult(galleryIntent,Result_load_image);
                 startActivityForResult(intent,Result_load_image);
                 break;
+
         }
     }
     @Override
