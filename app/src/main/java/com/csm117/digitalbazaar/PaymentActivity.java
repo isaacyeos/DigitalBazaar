@@ -25,7 +25,7 @@ public class PaymentActivity extends AppCompatActivity {
         setContentView(R.layout.activity_payment);
     }
 
-    private void showMessage(CharSequence text) {
+    public void showMessage(CharSequence text) {
         Context context = getApplicationContext();
         int duration = Toast.LENGTH_SHORT;
         Toast toast = Toast.makeText(context, text, duration);
@@ -52,6 +52,7 @@ public class PaymentActivity extends AppCompatActivity {
 
 
         Stripe stripe = new Stripe();
+        final StripeBackend stripeBackend = new StripeBackend(this);
         try {
             stripe.setDefaultPublishableKey("pk_test_PRUasoC2c2VrLqBR4WV1tFwS");
         } catch (Exception e) {
@@ -62,6 +63,8 @@ public class PaymentActivity extends AppCompatActivity {
                 new TokenCallback() {
                     public void onSuccess(Token token) {
                         // Send token to your server
+                        System.out.println("Token: "+token.getId());
+                        stripeBackend.charge(token.getId());
                     }
 
                     public void onError(Exception error) {
@@ -84,8 +87,8 @@ public class PaymentActivity extends AppCompatActivity {
         DatabaseReference payment = database.getReference();
 
         // Add something to database
-        PaymentInformation p = new PaymentInformation(cardNumber, "someone");
-        payment.child("payment").child(cardNumber).setValue(p);
+        PaymentInformation p = new PaymentInformation("randomToken", "someone");
+        payment.child("payment").child(p.token).setValue(p);
 
         showMessage("Done Saving");
     }
