@@ -8,15 +8,15 @@ import com.google.firebase.database.IgnoreExtraProperties;
 
 @IgnoreExtraProperties
 public class PaymentInformation {
-    public String token;
+    public String id;
     public String owner;
 
     public PaymentInformation() {
         // Default constructor required for calls to DataSnapshot.getValue(PaymentInformation.class)
     }
 
-    public PaymentInformation(String token, String owner) {
-        this.token = token;
+    public PaymentInformation(String id, String owner) {
+        this.id = id;
         this.owner = owner;
     }
 

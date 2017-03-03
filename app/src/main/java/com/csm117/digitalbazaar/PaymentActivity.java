@@ -12,17 +12,18 @@ import com.stripe.android.*;
 import com.stripe.android.model.Card;
 import com.stripe.android.model.Token;
 
-import com.google.firebase.auth.*;
 import com.google.firebase.database.*;
-import com.google.firebase.firebase_core.*;
 
 
 public class PaymentActivity extends AppCompatActivity {
+    PaymentBackend paymentBackend;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
+
+        paymentBackend = new PaymentBackend(this);
     }
 
     public void showMessage(CharSequence text) {
@@ -33,7 +34,6 @@ public class PaymentActivity extends AppCompatActivity {
     }
 
     public void testProcess(View view) {
-
         // Get form info
         EditText et = (EditText) findViewById(R.id.creditcardNumberEdit);
         String cardNumber = et.getText().toString();
@@ -50,21 +50,18 @@ public class PaymentActivity extends AppCompatActivity {
             showMessage("Invalid Card!");
         }
 
-
         Stripe stripe = new Stripe();
-        final StripeBackend stripeBackend = new StripeBackend(this);
         try {
             stripe.setDefaultPublishableKey("pk_test_PRUasoC2c2VrLqBR4WV1tFwS");
         } catch (Exception e) {
-            System.out.println(e);
+            showMessage("Error connecting to network!");
         }
         stripe.createToken(
                 card,
                 new TokenCallback() {
                     public void onSuccess(Token token) {
                         // Send token to your server
-                        System.out.println("Token: "+token.getId());
-                        stripeBackend.charge(token.getId());
+                        paymentBackend.charge(token.getId());
                     }
 
                     public void onError(Exception error) {
@@ -79,17 +76,38 @@ public class PaymentActivity extends AppCompatActivity {
         // Get form info
         EditText et = (EditText) findViewById(R.id.creditcardNumberEdit);
         String cardNumber = et.getText().toString();
+        et = (EditText) findViewById(R.id.expirationMonthEdit);
+        int cardExpMonth = Integer.parseInt(et.getText().toString());
+        et = (EditText) findViewById(R.id.expirationYearEdit);
+        int cardExpYear = Integer.parseInt(et.getText().toString());
+        et = (EditText) findViewById(R.id.ccvEdit);
+        String cardCCV = et.getText().toString();
 
-        showMessage("Start Saving");
+        Card card = new Card(cardNumber, cardExpMonth, cardExpYear, cardCCV);
+        if (!card.validateCard()) {
+            // Show errors
+            showMessage("Invalid Card!");
+        }
 
-        // Save token to database
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference payment = database.getReference();
+        Stripe stripe = new Stripe();
+        try {
+            stripe.setDefaultPublishableKey("pk_test_PRUasoC2c2VrLqBR4WV1tFwS");
+        } catch (Exception e) {
+            showMessage("Error connecting to network!");
+        }
+        stripe.createToken(
+                card,
+                new TokenCallback() {
+                    public void onSuccess(Token token) {
+                        // Send token to your server
+                        paymentBackend.newCustomer(token.getId());
+                    }
 
-        // Add something to database
-        PaymentInformation p = new PaymentInformation("randomToken", "someone");
-        payment.child("payment").child(p.token).setValue(p);
-
-        showMessage("Done Saving");
+                    public void onError(Exception error) {
+                        // Show localized error message
+                        showMessage("Error processing credit card!");
+                    }
+                }
+        );
     }
 }
