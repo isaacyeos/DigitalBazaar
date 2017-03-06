@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import java.util.ArrayList;
+
 public class DashBoard extends AppCompatActivity {
 
     @Override
@@ -25,6 +27,8 @@ public class DashBoard extends AppCompatActivity {
     public void clickButtonGoToMain(View view) {
         // Do something in response to button
         Intent intent = new Intent(this, MainFunc.class);
+        ArrayList<String> Users = getIntent().getExtras().getStringArrayList("userIDs");
+        intent.putStringArrayListExtra("userIDs", Users);
         startActivity(intent);
     }
     public void clickButtonGoToVerification(View view) {

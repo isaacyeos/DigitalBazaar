@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import java.util.ArrayList;
+
 public class MainFunc extends AppCompatActivity {
 
     @Override
@@ -28,6 +30,8 @@ public class MainFunc extends AppCompatActivity {
     public void clickButtonGoToMessages(View view) {
         // Do something in response to button
         Intent intent = new Intent(this, ChatMainActivity.class);
+        ArrayList<String> Users = getIntent().getExtras().getStringArrayList("userIDs");
+        intent.putStringArrayListExtra("userIDs", Users);
         startActivity(intent);
     }
 }

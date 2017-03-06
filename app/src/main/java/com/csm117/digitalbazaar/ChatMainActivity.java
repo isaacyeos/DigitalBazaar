@@ -12,6 +12,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.firebase.ui.database.FirebaseListAdapter;
 import android.text.format.DateFormat;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 
@@ -21,15 +22,18 @@ public class ChatMainActivity extends AppCompatActivity {
     private String otherUserId;
     private String conversationId;
     private String chatPath;
+    private static ArrayList<String> Users = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_main);
         Log.d("tag", "Inside on-create for ChatMainActivity.");
-
-        currentUserId = "5555";
-        otherUserId = "7777";
+        Users = getIntent().getExtras().getStringArrayList("userIDs");
+//        currentUserId = "5555";
+//        otherUserId = "7777";
+        currentUserId = Users.get(0);
+        otherUserId = Users.get(1);
         conversationId = "conv-id-" + currentUserId + "-" + otherUserId;
 
         // Create new chat thread for the two users. Store thread id in each user's account info

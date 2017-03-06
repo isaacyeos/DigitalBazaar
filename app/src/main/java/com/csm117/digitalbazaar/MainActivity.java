@@ -22,6 +22,7 @@ import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.google.android.gms.nearby.messages.Strategy;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
@@ -29,6 +30,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -45,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     private CallbackManager mCallbackManager;
     //to keep track of the child activity activity_dash_board
     private static final int REQUEST_CODE_LOGIN = 0;
+    private static ArrayList<String> Users = new ArrayList<String>();
 
     @Override
         public void onCreate(Bundle savedInstanceState) {
@@ -76,7 +80,9 @@ public class MainActivity extends AppCompatActivity {
                     FirebaseUser user = firebaseAuth.getCurrentUser();
                     if (user != null) {
                         // User is signed in
-                        Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+                        String userid = user.getUid();
+                        Log.d(TAG, "onAuthStateChanged:signed_in:" + userid);
+                        Users.add(userid);
                         //upon successful login direct to payment page
                         goToDashBoard();
 
@@ -220,6 +226,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void goToDashBoard() {
         Intent intent = new Intent(this, DashBoard.class);
+        intent.putStringArrayListExtra("userIDs", Users);
         startActivityForResult(intent, REQUEST_CODE_LOGIN);
     }
 }
