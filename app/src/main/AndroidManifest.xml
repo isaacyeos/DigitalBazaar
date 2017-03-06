@@ -61,6 +61,8 @@
         <activity android:name=".setting" />
         <activity android:name=".ItemView" />
         <activity android:name=".Verfication" />
+        <activity android:name=".ChatMainActivity"></activity>
+    </application>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
