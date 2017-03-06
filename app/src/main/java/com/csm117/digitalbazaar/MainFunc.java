@@ -1,29 +1,21 @@
 package com.csm117.digitalbazaar;
 
 import android.content.Intent;
-import android.support.annotation.IntegerRes;
+import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.text.format.DateFormat;
+import android.util.Base64;
 import android.view.View;
-import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-
+import android.graphics.Bitmap;
 import com.firebase.ui.database.FirebaseListAdapter;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
 
-import static com.csm117.digitalbazaar.R.id.post;
 
 
 public class MainFunc extends AppCompatActivity {
@@ -113,11 +105,16 @@ public class MainFunc extends AppCompatActivity {
                 // Get references to the views of message.xml
                 TextView title = (TextView)v.findViewById(R.id.postTitle);
                 TextView price = (TextView)v.findViewById(R.id.postPrice);
-                TextView image = (TextView)v.findViewById(R.id.postImageText);
-
+                ImageView image = (ImageView) v.findViewById(R.id.postImageText);
+                TextView Destrc = (TextView) v.findViewById(R.id.postDescription);
+                String imageText = model.image;
                 title.setText(model.title);
                 price.setText(model.price);
-                image.setText("IMAGE HERE");
+                Destrc.setText(model.description);
+               byte[] imageBytes = Base64.decode(imageText,Base64.DEFAULT);
+                Bitmap DecodeImage = BitmapFactory.decodeByteArray(imageBytes,0,imageBytes.length);
+                image.setImageBitmap(DecodeImage);
+                //  image.setImage("IMAGE HERE");
             }
         };
 
