@@ -33,7 +33,7 @@ public class ChatMainActivity extends AppCompatActivity {
 //        currentUserId = "5555";
 //        otherUserId = "7777";
         currentUserId = Users.get(0);
-        otherUserId = Users.get(1);
+        otherUserId = Users.get(2);
         conversationId = "conv-id-" + currentUserId + "-" + otherUserId;
 
         // Create new chat thread for the two users. Store thread id in each user's account info
