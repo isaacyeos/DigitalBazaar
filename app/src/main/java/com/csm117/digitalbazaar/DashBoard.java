@@ -44,5 +44,9 @@ public class DashBoard extends AppCompatActivity {
         Intent intent = new Intent(this, PaymentActivity.class);
         startActivity(intent);
     }
+    public void clickButtonGoToMaps(View view) {
+        Intent intent = new Intent(this, MyLocationActivity.class);
+        startActivity(intent);
+    }
 
 }
