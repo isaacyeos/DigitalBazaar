@@ -36,6 +36,7 @@ public class Posting extends AppCompatActivity implements View.OnClickListener{
     private ImageView imageToupload;
     Button bUploadImage;
     private StorageReference mStorage;
+    private String currentUserId = "5555";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +79,7 @@ public class Posting extends AppCompatActivity implements View.OnClickListener{
 
         // Add something to database
         //PostInfo p = new PostInfo(topic, "someone");
-        PostInfo p = new PostInfo(topic,price,description,Imaged);
+        PostInfo p = new PostInfo(topic,price,description,Imaged, currentUserId);
         Posts.child("posts").child(topic).setValue(p);
 
         showMessage("Done Posting");
