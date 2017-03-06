@@ -84,9 +84,6 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyA5n8VdozAhcqi8iJGuX0OaIx3LbSd84cE" />
 
-        <activity
-            android:name=".MapsActivity"
-            android:label="@string/title_activity_maps" />
         <activity android:name=".image" />
         <activity
             android:name=".MyLocationActivity"
