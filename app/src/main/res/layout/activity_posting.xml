@@ -15,6 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:weightSum="1"
+        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
 
@@ -27,11 +28,11 @@ Don't violate the rule of our posting policy. Thanks"
             />
 
         <EditText
-        android:layout_width="335dp"
-        android:layout_height="wrap_content"
-        android:inputType="textCapSentences|textAutoCorrect"
-        android:id="@+id/topic"
-        android:hint="Title of your Post:" />
+            android:layout_width="335dp"
+            android:layout_height="wrap_content"
+            android:inputType="textCapSentences|textAutoCorrect"
+            android:id="@+id/topic"
+            android:hint="Title of your Post:" />
         <EditText
             android:layout_width="335dp"
             android:layout_height="wrap_content"
@@ -52,21 +53,30 @@ Don't violate the rule of our posting policy. Thanks"
             android:hint=""
             android:layout_weight="0.74" />
 
-        <Button
-            android:text="Attatch Image"
-            android:layout_width="wrap_content"
-            android:layout_height="52dp"
-            android:id="@+id/Posting"
-            android:onClick="clickButtonGoToPayment"
-            android:backgroundTint="@android:color/holo_blue_dark"
-            android:layout_weight="0.05"/>
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:id="@+id/imageToupload"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:background="#FFFFFF"
+            android:visibility="visible"
+            android:src="@mipmap/ic_launcher" />
 
+        <Button
+            android:id="@+id/bUploadImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="UPLOAD IMAGE"
+            android:backgroundTint="@android:color/holo_blue_dark"
+            android:layout_marginTop="10dp"
+            />
         <Button
             android:text="Post"
             android:layout_width="90dp"
             android:layout_height="52dp"
-            android:id="@+id/message"
-            android:onClick="clickButtonGoToPayment"
+            android:id="@+id/post"
+            android:onClick="Setdata"
             android:backgroundTint="@android:color/holo_green_dark"
             android:layout_weight="0.05" />
 
