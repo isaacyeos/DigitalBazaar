@@ -12,9 +12,15 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.firebase.ui.database.FirebaseListAdapter;
 import android.text.format.DateFormat;
 
+import java.util.Date;
+
 
 public class ChatMainActivity extends AppCompatActivity {
     private FirebaseListAdapter<ChatMessage> adapter;
+    private String currentUserId;
+    private String otherUserId;
+    private String conversationId;
+    private String chatPath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,36 +28,50 @@ public class ChatMainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chat_main);
         Log.d("tag", "Inside on-create for ChatMainActivity.");
 
-//        if (FirebaseAuth.getInstance().getCurrentUser() == null) {
-            Log.d("tag", "User is authenticated. Proceeding to chat with user.");
+        currentUserId = "5555";
+        otherUserId = "7777";
+        conversationId = "conv-id-" + currentUserId + "-" + otherUserId;
 
-            FloatingActionButton fab =
-                    (FloatingActionButton)findViewById(R.id.fab);
+        // Create new chat thread for the two users. Store thread id in each user's account info
+        String currentUserPath = "accounts/" + currentUserId + "/conversations/" + conversationId;
+        FirebaseDatabase.getInstance()
+                        .getReference(currentUserPath)
+                        .setValue(new Date().getTime());
 
-            fab.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
+        String otherUserPath = "accounts/" + otherUserId + "/conversations/" + conversationId;
+        FirebaseDatabase.getInstance()
+                .getReference(otherUserPath)
+                .setValue(new Date().getTime());
 
-                    Log.d("tag", "User clicked floating action button");
-                    EditText input = (EditText)findViewById(R.id.input);
+        chatPath = "messages/" + conversationId;
 
-                    // Read the input field and push a new instance
-                    // of ChatMessage to the Firebase database
-                    FirebaseDatabase.getInstance()
-                            .getReference()
-                            .push()
-                            .setValue(new ChatMessage(input.getText().toString(),
-                                    FirebaseAuth.getInstance()
-                                            .getCurrentUser()
-                                            .getDisplayName())
-                            );
+        FloatingActionButton fab =
+                (FloatingActionButton)findViewById(R.id.fab);
 
-                    // Clear the input
-                    input.setText("");
-                }
-            });
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-            displayChatRoomMessages();
+                Log.d("tag", "User clicked floating action button");
+                EditText input = (EditText)findViewById(R.id.input);
+
+                // Read the input field and push a new instance
+                // of ChatMessage to the Firebase database
+                FirebaseDatabase.getInstance()
+                        .getReference(chatPath)
+                        .push()
+                        .setValue(new ChatMessage(input.getText().toString(),
+                                FirebaseAuth.getInstance()
+                                        .getCurrentUser()
+                                        .getDisplayName())
+                        );
+
+                // Clear the input
+                input.setText("");
+            }
+        });
+
+        displayChatRoomMessages();
 
 
 //        }
@@ -61,8 +81,9 @@ public class ChatMainActivity extends AppCompatActivity {
     private void displayChatRoomMessages() {
         ListView listOfMessages = (ListView)findViewById(R.id.list_of_messages);
 
+
         adapter = new FirebaseListAdapter<ChatMessage>(this, ChatMessage.class,
-                R.layout.message, FirebaseDatabase.getInstance().getReference()) {
+                R.layout.message, FirebaseDatabase.getInstance().getReference(chatPath)) {
             @Override
             protected void populateView(View v, ChatMessage model, int position) {
                 // Get references to the views of message.xml
