@@ -43,6 +43,8 @@ public class PaymentActivity extends AppCompatActivity {
         int cardExpYear = Integer.parseInt(et.getText().toString());
         et = (EditText) findViewById(R.id.ccvEdit);
         String cardCCV = et.getText().toString();
+        et = (EditText) findViewById(R.id.chargeAmount);
+        final int chargeAmount = Integer.parseInt(et.getText().toString());
 
         Card card = new Card(cardNumber, cardExpMonth, cardExpYear, cardCCV);
         if (!card.validateCard()) {
@@ -61,7 +63,7 @@ public class PaymentActivity extends AppCompatActivity {
                 new TokenCallback() {
                     public void onSuccess(Token token) {
                         // Send token to your server
-                        paymentBackend.charge(token.getId());
+                        paymentBackend.charge(chargeAmount, token.getId());
                     }
 
                     public void onError(Exception error) {
