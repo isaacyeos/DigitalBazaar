@@ -68,6 +68,14 @@ tools:context="com.csm117.digitalbazaar.PaymentActivity">
         android:id="@+id/nameOnCardEdit"
         android:hint="Name on card" />
 
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/chargeAmount"
+        android:hint="Charge amount (in cents)" />
+
     <TextView
         android:text="test saving credit card info. Click this button will save it to database"
         android:layout_width="match_parent"
@@ -82,7 +90,7 @@ tools:context="com.csm117.digitalbazaar.PaymentActivity">
         android:id="@+id/testSaveButton" />
 
     <TextView
-        android:text="test processing credit card info. Click this button will charge $0.01 to credit card"
+        android:text="test processing credit card info. Click this button will charge to credit card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/testProcessLabel" />

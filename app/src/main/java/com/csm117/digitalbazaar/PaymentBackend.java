@@ -13,9 +13,14 @@ import java.util.Map;
 import java.util.HashMap;
 
 public class PaymentBackend {
-    private class ChargeTask extends AsyncTask<String, Void, Boolean> {
-        protected Boolean doInBackground(String... tokenId) {
-            String tok = tokenId[0];
+    private class ChargeParams {
+        String tokenId;
+        int amount;     // in cents
+    }
+    private class ChargeTask extends AsyncTask<ChargeParams, Void, Boolean> {
+        protected Boolean doInBackground(ChargeParams... params) {
+            String tok = params[0].tokenId;
+            int amount = params[0].amount;
 
             // Create a Customer:
             Map<String, Object> customerParams = new HashMap<String, Object>();
@@ -28,7 +33,7 @@ public class PaymentBackend {
 
                 // Charge the Customer instead of the card:
                 Map<String, Object> chargeParams = new HashMap<String, Object>();
-                chargeParams.put("amount", 100);
+                chargeParams.put("amount", amount);
                 chargeParams.put("currency", "usd");
                 chargeParams.put("customer", customerId);
                 Charge charge = Charge.create(chargeParams);
@@ -42,33 +47,6 @@ public class PaymentBackend {
             PaymentInformation p = new PaymentInformation(customerId, "someone");
             payment.child("payment").child(p.id).setValue(p);
 
-            return true;
-        }
-
-        @Override
-        protected void onPostExecute(Boolean result) {
-            if (result) {
-                informFrontEnd("Payment success!");
-            } else {
-                informFrontEnd("Payment declined!");
-            }
-        }
-    }
-
-    private class ChargeCustomer extends AsyncTask<String, Void, Boolean> {
-        protected Boolean doInBackground(String... customerIds) {
-            String customerId = customerIds[0];
-            try {
-                // Charge the Customer instead of the card:
-                Map<String, Object> chargeParams = new HashMap<String, Object>();
-                chargeParams.put("amount", 100);
-                chargeParams.put("currency", "usd");
-                chargeParams.put("customer", customerId);
-                Charge charge = Charge.create(chargeParams);
-
-            } catch (Exception e) {
-                return false;
-            }
             return true;
         }
 
@@ -136,8 +114,17 @@ public class PaymentBackend {
         new NewCustomerTask().execute(tokenId);
     }
 
-    public void charge(String tokenId) {
-        new ChargeTask().execute(tokenId);
+    public void charge(int amount, String tokenId) {
+        // Check params
+        if (amount<100) {
+            informFrontEnd("Transaction amount too small, minimum 100 cents");
+            return;
+        }
+
+        ChargeParams params = new ChargeParams();
+        params.amount = amount;
+        params.tokenId = tokenId;
+        new ChargeTask().execute(params);
     }
 
 }
