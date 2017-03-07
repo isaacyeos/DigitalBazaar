@@ -29,7 +29,7 @@ public class DashBoard extends AppCompatActivity {
         Intent intent = new Intent(this, MainFunc.class);
 //        ArrayList<String> Users = getIntent().getExtras().getStringArrayList("userIDs");
 //        intent.putStringArrayListExtra("userIDs", Users);
-        String curUser = getIntent().getStringExtra("userIDs");
+        String curUser = getIntent().getExtras().getString("userID");
         intent.putExtra("userID", curUser);
         startActivity(intent);
     }

@@ -34,6 +34,9 @@ public class MainFunc extends AppCompatActivity {
     //final static String URL = "https://digitalbazaar-f496d.firebaseio.com/posts";
     private TextView testTextView;
 
+//    private static final int REQUEST_CODE_POSTING = 0;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,7 +85,10 @@ public class MainFunc extends AppCompatActivity {
     public void clickButtonGoToPosting(View view) {
         // Do something in response to button
         Intent intent = new Intent(this, Posting.class);
+        String curUser = getIntent().getExtras().getString("userID");
+        intent.putExtra("userID", curUser);
         startActivity(intent);
+//        startActivityForResult(intent, REQUEST_CODE_POSTING);
     }
 
     public void clickButtonGoToSetting(View view) {
@@ -96,7 +102,7 @@ public class MainFunc extends AppCompatActivity {
         Intent intent = new Intent(this, ChatMainActivity.class);
 //        ArrayList<String> Users = getIntent().getExtras().getStringArrayList("userIDs");
 //        intent.putStringArrayListExtra("userIDs", Users);
-        String curUser = getIntent().getStringExtra("userIDs");
+        String curUser = getIntent().getExtras().getString("userID");
         intent.putExtra("userID", curUser);
         startActivity(intent);
     }

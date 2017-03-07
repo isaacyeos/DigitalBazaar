@@ -11,16 +11,20 @@ public class PostInfo {
     public String description;
     public String image;
     public String posterid;
+    public String latitude;
+    public String longitude;
     public PostInfo() {
         // Default constructor required for calls to DataSnapshot.getValue(PaymentInformation.class)
     }
 
-    public PostInfo(String title, String price,String description,String image, String posterid) {
+    public PostInfo(String title, String price,String description,String image, String posterid, String latitude, String longitude) {
         this.title = title;
         this.price = price;
         this.description = description;
         this.image = image;
         this.posterid = posterid;
+        this.latitude = latitude;
+        this.longitude = longitude;
 
     }
 
