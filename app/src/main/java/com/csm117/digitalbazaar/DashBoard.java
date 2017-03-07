@@ -27,8 +27,10 @@ public class DashBoard extends AppCompatActivity {
     public void clickButtonGoToMain(View view) {
         // Do something in response to button
         Intent intent = new Intent(this, MainFunc.class);
-        ArrayList<String> Users = getIntent().getExtras().getStringArrayList("userIDs");
-        intent.putStringArrayListExtra("userIDs", Users);
+//        ArrayList<String> Users = getIntent().getExtras().getStringArrayList("userIDs");
+//        intent.putStringArrayListExtra("userIDs", Users);
+        String curUser = getIntent().getStringExtra("userIDs");
+        intent.putExtra("userID", curUser);
         startActivity(intent);
     }
     public void clickButtonGoToVerification(View view) {

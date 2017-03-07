@@ -22,18 +22,20 @@ public class ChatMainActivity extends AppCompatActivity {
     private String otherUserId;
     private String conversationId;
     private String chatPath;
-    private static ArrayList<String> Users = new ArrayList<String>();
+    private static String curUser;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_main);
         Log.d("tag", "Inside on-create for ChatMainActivity.");
-        Users = getIntent().getExtras().getStringArrayList("userIDs");
-//        currentUserId = "5555";
-//        otherUserId = "7777";
-        currentUserId = Users.get(0);
-        otherUserId = Users.get(2);
+
+        //get currentUserId and find it in Firebase
+        curUser = getIntent().getStringExtra("userIDs");
+
+        currentUserId = "5555";
+        otherUserId = "7777";
         conversationId = "conv-id-" + currentUserId + "-" + otherUserId;
 
         // Create new chat thread for the two users. Store thread id in each user's account info

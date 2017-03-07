@@ -30,8 +30,11 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -48,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
     private CallbackManager mCallbackManager;
     //to keep track of the child activity activity_dash_board
     private static final int REQUEST_CODE_LOGIN = 0;
-    private static ArrayList<String> Users = new ArrayList<String>();
+    private static String curUser;
 
     @Override
         public void onCreate(Bundle savedInstanceState) {
@@ -80,9 +83,12 @@ public class MainActivity extends AppCompatActivity {
                     FirebaseUser user = firebaseAuth.getCurrentUser();
                     if (user != null) {
                         // User is signed in
-                        String userid = user.getUid();
-                        Log.d(TAG, "onAuthStateChanged:signed_in:" + userid);
-                        Users.add(userid);
+                        curUser = user.getUid();
+                        String currentUserPath = "accounts/" + curUser;
+                        FirebaseDatabase.getInstance()
+                                .getReference(currentUserPath)
+                                .setValue(new Date().getTime());
+                        Log.d(TAG, "onAuthStateChanged:signed_in:" + curUser);
                         //upon successful login direct to payment page
                         goToDashBoard();
 
@@ -226,7 +232,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void goToDashBoard() {
         Intent intent = new Intent(this, DashBoard.class);
-        intent.putStringArrayListExtra("userIDs", Users);
+        intent.putExtra("userID", curUser);
         startActivityForResult(intent, REQUEST_CODE_LOGIN);
     }
 }
