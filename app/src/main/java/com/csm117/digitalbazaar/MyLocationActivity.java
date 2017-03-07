@@ -27,6 +27,11 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+////////////////////////////////////
+//Google Play Location sample code
+///////////////////////////////////
+//https://github.com/googlesamples/android-play-location
+
 public class MyLocationActivity extends AppCompatActivity implements ConnectionCallbacks, OnConnectionFailedListener, OnMapReadyCallback {
 
     private static final String TAG = "Maps"; //final means constant - cannot change the value
@@ -51,6 +56,14 @@ public class MyLocationActivity extends AppCompatActivity implements ConnectionC
 
     @Override
     public void onConnected(Bundle connectionHint) {
+        //////////////////////////////
+        //relevant links//////////////
+        //////////////////////////////
+        //http://stackoverflow.com/questions/33327984/call-requires-permissions-that-may-be-rejected-by-user
+        //http://stackoverflow.com/questions/32491960/android-check-permission-for-locationmanager/35756804
+        //http://stackoverflow.com/questions/35003667/cannot-resolve-symbol-locationservice-when-trying-to-add-marshmallow-permissio/35003971
+        //https://www.reddit.com/r/learnandroid/comments/4gqqh9/run_time_permissions_for_location/
+        //need to check if user had granted location permissions
         if ( ContextCompat.checkSelfPermission( this, Manifest.permission.ACCESS_FINE_LOCATION ) != PackageManager.PERMISSION_GRANTED ) {
 
             ActivityCompat.requestPermissions( this, new String[] {  Manifest.permission.ACCESS_FINE_LOCATION  },
@@ -61,15 +74,10 @@ public class MyLocationActivity extends AppCompatActivity implements ConnectionC
         if (mLastLocation != null) {
             latitude = mLastLocation.getLatitude();
             longitude = mLastLocation.getLongitude();
-
             // Obtain the SupportMapFragment and get notified when the map is ready to be used.
             SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                     .findFragmentById(R.id.map);
             mapFragment.getMapAsync(this);
-
-//            mLatitudeText.setText(String.valueOf(mLastLocation.getLatitude()));
-//            mLongitudeText.setText(String.valueOf(mLastLocation.getLongitude()));
-            Log.d(TAG, "location successful!");
         }
     }
 
@@ -100,9 +108,6 @@ public class MyLocationActivity extends AppCompatActivity implements ConnectionC
         }
     }
 
-
-
-
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
@@ -115,9 +120,11 @@ public class MyLocationActivity extends AppCompatActivity implements ConnectionC
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
-        // Add a marker in Sydney and move the camera
-//        LatLng sydney = new LatLng(-34, 151);
+        /////////////////////
+        //relevant links/////
+        /////////////////////
+        //https://developers.google.com/maps/documentation/android-api/views#zoom
+        // Add a marker in current location, move the camera, and zoom in
         LatLng curLocation = new LatLng(latitude, longitude);
         mMap.addMarker(new MarkerOptions().position(curLocation).title("Current Location"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(curLocation));
