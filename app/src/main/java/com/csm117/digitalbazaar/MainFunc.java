@@ -18,6 +18,8 @@ import java.util.ArrayList;
 
 
 
+import java.util.ArrayList;
+
 public class MainFunc extends AppCompatActivity {
     //final FirebaseDatabase database = FirebaseDatabase.getInstance();
     //DatabaseReference ref = database.getReference("https://digitalbazaar-f496d.firebaseio.com/");
@@ -92,6 +94,10 @@ public class MainFunc extends AppCompatActivity {
     public void clickButtonGoToMessages(View view) {
         // Do something in response to button
         Intent intent = new Intent(this, ChatMainActivity.class);
+//        ArrayList<String> Users = getIntent().getExtras().getStringArrayList("userIDs");
+//        intent.putStringArrayListExtra("userIDs", Users);
+        String curUser = getIntent().getStringExtra("userIDs");
+        intent.putExtra("userID", curUser);
         startActivity(intent);
     }
 

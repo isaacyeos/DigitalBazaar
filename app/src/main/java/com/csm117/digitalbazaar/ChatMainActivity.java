@@ -12,6 +12,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.firebase.ui.database.FirebaseListAdapter;
 import android.text.format.DateFormat;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 
@@ -21,12 +22,17 @@ public class ChatMainActivity extends AppCompatActivity {
     private String otherUserId;
     private String conversationId;
     private String chatPath;
+    private static String curUser;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_main);
         Log.d("tag", "Inside on-create for ChatMainActivity.");
+
+        //get currentUserId and find it in Firebase
+        curUser = getIntent().getStringExtra("userIDs");
 
         currentUserId = "5555";
         otherUserId = "7777";
