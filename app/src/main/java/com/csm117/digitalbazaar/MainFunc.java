@@ -119,11 +119,13 @@ public class MainFunc extends AppCompatActivity {
                 TextView price = (TextView)v.findViewById(R.id.postPrice);
                 ImageView image = (ImageView) v.findViewById(R.id.postImageText);
                 TextView Destrc = (TextView) v.findViewById(R.id.postDescription);
+                TextView UserId = (TextView) v.findViewById(R.id.postUserId);
                 String imageText = model.image;
                 title.setText(model.title);
                 price.setText(model.price);
                 Destrc.setText(model.description);
-               byte[] imageBytes = Base64.decode(imageText,Base64.DEFAULT);
+                UserId.setText(model.posterid);
+                byte[] imageBytes = Base64.decode(imageText,Base64.DEFAULT);
                 Bitmap DecodeImage = BitmapFactory.decodeByteArray(imageBytes,0,imageBytes.length);
                 image.setImageBitmap(DecodeImage);
                 //  image.setImage("IMAGE HERE");

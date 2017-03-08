@@ -32,6 +32,16 @@
         android:layout_below="@+id/postPrice"
         android:layout_alignLeft="@+id/postPrice"
         android:layout_alignStart="@+id/postPrice" />
+    <TextView
+        android:text="UserId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="20dp"
+        android:id="@+id/postUserId"
+        android:layout_below="@+id/postDescription"
+        android:layout_alignLeft="@+id/postDescription"
+        android:layout_alignStart="@+id/postDescription" />
 
     <Button
         android:text="Message"
@@ -65,7 +75,7 @@
         android:layout_width="260dp"
         android:layout_height="150dp"
         android:id="@+id/postImageText"
-        android:layout_below="@+id/postDescription"
+        android:layout_below="@+id/postUserId"
         android:layout_toRightOf="@+id/postTitle"
         android:layout_toEndOf="@+id/postTitle"/>
 
