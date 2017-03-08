@@ -80,11 +80,12 @@ public class MyLocationActivity extends AppCompatActivity implements ConnectionC
     private double otherUserLatitude;
     private double otherUserLongitude;
 
+    //---for debugging purposes---
     private static final String TAG2 = "Latitude";
     private static final String TAG3 = "Longitude";
-
     private String latitudeString;
     private String longitudeString;
+    //-----------------------------
 
     private DatabaseReference LatRef;
     private DatabaseReference LongRef;
@@ -183,20 +184,13 @@ public class MyLocationActivity extends AppCompatActivity implements ConnectionC
         LatLng otherUserLocation = new LatLng(otherUserLatitude, otherUserLongitude);
         mMap.addMarker(new MarkerOptions().position(otherUserLocation).title("Other User Location"));
 
-//        //other user
-//        String otherUserId = getIntent().getExtras().getString("otheruserID");
-//        String otherUserPathLat = "accounts/" + otherUserId + "/location/latitude";
-//        String latitudeString = FirebaseDatabase.getInstance().getReference(otherUserPathLat).getKey();
-////        otherUserLatitude = ;
-////        private double otherUserLongitude;
-//        String otherUserPathLong = "accounts/" + otherUserId + "/location/longitude";
-//        String longitudeString = FirebaseDatabase.getInstance().getReference(otherUserPathLong).getKey();
-
+        //---for debugging purposes---
         latitudeString = String.valueOf(otherUserLatitude);
         longitudeString = String.valueOf(otherUserLongitude);
         Log.d(TAG2, latitudeString);
         Log.d(TAG3, longitudeString);
-        ///////////////////////////////////
+        //-----------------------------
+
         mMap.moveCamera(CameraUpdateFactory.newLatLng(curLocation));
         mMap.moveCamera(CameraUpdateFactory.zoomTo(20));
     }

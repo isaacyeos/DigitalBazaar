@@ -37,9 +37,16 @@ import java.util.Date;
 import java.util.HashSet;
 
 
+//--------fb login with firebase reference----
+//https://firebase.google.com/docs/auth/android/facebook-login
+//https://github.com/firebase/quickstart-android/blob/master/auth/app/src/minSdkJellybean/java/com/google/firebase/quickstart/auth/FacebookLoginActivity.java#L150-L156
+//-------------------------------------------
+
 public class MainActivity extends AppCompatActivity {
 
+    //for debugging purposes
     private static final String TAG = "FacebookLogin"; //final means constant - cannot change the value
+
     private TextView mStatusTextView;
     private TextView mDetailTextView;
     // [START declare_auth]
@@ -62,15 +69,6 @@ public class MainActivity extends AppCompatActivity {
             // Views
             mStatusTextView = (TextView) findViewById(R.id.status);
             mDetailTextView = (TextView) findViewById(R.id.detail);
-            findViewById(R.id.button_facebook_signout).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int i = v.getId();
-                    if (i == R.id.button_facebook_signout) {
-                        signOut();
-                    }
-                }
-            });
             // [START initialize_auth]
             // Initialize Firebase Auth
             mAuth = FirebaseAuth.getInstance();
@@ -83,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
                     FirebaseUser user = firebaseAuth.getCurrentUser();
                     if (user != null) {
                         // User is signed in
+                        findViewById(R.id.login_button).setVisibility(View.GONE);
                         curUser = user.getUid();
                         String currentUserPath = "accounts/" + curUser;
                         FirebaseDatabase.getInstance()
@@ -91,14 +90,14 @@ public class MainActivity extends AppCompatActivity {
                         Log.d(TAG, "onAuthStateChanged:signed_in:" + curUser);
                         //upon successful login direct to payment page
                         goToDashBoard();
-
-                    } else {
-                        // User is signed out
-                        Log.d(TAG, "onAuthStateChanged:signed_out");
                     }
-                    // [START_EXCLUDE]
-                    updateUI(user);
-                    // [END_EXCLUDE]
+//                      else {
+//                        // User is signed out
+//                        Log.d(TAG, "onAuthStateChanged:signed_out");
+//                    }
+//                    // [START_EXCLUDE]
+//                    updateUI(user);
+//                    // [END_EXCLUDE]
                 }
             };
             // [END auth_state_listener]
@@ -196,10 +195,6 @@ public class MainActivity extends AppCompatActivity {
                                 Toast.makeText(MainActivity.this, "Authentication failed.",
                                         Toast.LENGTH_SHORT).show();
                             }
-
-                            // [START_EXCLUDE]
-//                        hideProgressDialog();
-                            // [END_EXCLUDE]
                         }
                     });
         }
@@ -214,17 +209,12 @@ public class MainActivity extends AppCompatActivity {
         private void updateUI(FirebaseUser user) {
 //        hideProgressDialog();
             if (user != null) {
-                mStatusTextView.setText(user.getDisplayName());
-                mDetailTextView.setText(user.getUid());
-
                 findViewById(R.id.login_button).setVisibility(View.GONE);
-                findViewById(R.id.button_facebook_signout).setVisibility(View.VISIBLE);
             } else {
                 mStatusTextView.setText(R.string.signed_out);
                 mDetailTextView.setText(null);
-
-            findViewById(R.id.login_button).setVisibility(View.VISIBLE);
-            findViewById(R.id.button_facebook_signout).setVisibility(View.GONE);
+                findViewById(R.id.login_button).setVisibility(View.VISIBLE);
+//            findViewById(R.id.button_facebook_signout).setVisibility(View.GONE);
         }
     }
 
