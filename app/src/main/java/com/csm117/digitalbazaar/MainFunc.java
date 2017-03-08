@@ -110,6 +110,16 @@ public class MainFunc extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void clickButtonGoToMaps(View view) {
+        Intent intent = new Intent(this, MyLocationActivity.class);
+        String curUser = getIntent().getExtras().getString("userID");
+        intent.putExtra("userID", curUser);
+        TextView tv = (TextView) findViewById(R.id.postUserId);
+        String otherUser = tv.getText().toString();
+        intent.putExtra("otheruserID", otherUser);
+        startActivity(intent);
+    }
+
     private void displayAllPosts() {
         ListView listOfPosts = (ListView)findViewById(R.id.list_of_posts);
 

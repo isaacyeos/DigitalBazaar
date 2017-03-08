@@ -63,7 +63,7 @@
         android:layout_width="90dp"
         android:layout_height="52dp"
         android:id="@+id/setting"
-        android:onClick="clickButtonGoToSetting"
+        android:onClick="clickButtonGoToMaps"
         android:backgroundTint="@android:color/holo_green_light"
         android:layout_weight="0.05"
         android:layout_alignBaseline="@+id/Posting"
