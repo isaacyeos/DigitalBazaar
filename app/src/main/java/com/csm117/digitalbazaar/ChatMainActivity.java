@@ -23,6 +23,7 @@ public class ChatMainActivity extends AppCompatActivity {
     private String conversationId;
     private String chatPath;
     private static String curUser;
+    private static String otherUser;
 
 
     @Override
@@ -31,11 +32,12 @@ public class ChatMainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chat_main);
         Log.d("tag", "Inside on-create for ChatMainActivity.");
 
-        //get currentUserId and find it in Firebase
-        curUser = getIntent().getStringExtra("userIDs");
+        //get currentUserId and otherUserid
+        curUser = getIntent().getExtras().getString("userID");
+        otherUser = getIntent().getExtras().getString("otheruserID");
 
-        currentUserId = "5555";
-        otherUserId = "7777";
+        currentUserId = curUser;
+        otherUserId = otherUser;
         conversationId = "conv-id-" + currentUserId + "-" + otherUserId;
 
         // Create new chat thread for the two users. Store thread id in each user's account info

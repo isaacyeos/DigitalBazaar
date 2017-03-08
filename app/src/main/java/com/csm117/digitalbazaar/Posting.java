@@ -119,6 +119,5 @@ public class Posting extends AppCompatActivity implements View.OnClickListener{
             imageToupload.setImageURI(selectedImage);
         }
     }
+
 }
-
-
