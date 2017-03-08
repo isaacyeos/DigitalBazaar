@@ -7,7 +7,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.stripe.Stripe;
 import com.stripe.model.Charge;
 import com.stripe.model.Customer;
-import com.stripe.model.Token;
 
 import java.util.Map;
 import java.util.HashMap;
@@ -53,9 +52,9 @@ public class PaymentBackend {
         @Override
         protected void onPostExecute(Boolean result) {
             if (result) {
-                informFrontEnd("Payment success!");
+                notifyFrontEnd("Payment success!");
             } else {
-                informFrontEnd("Payment declined!");
+                notifyFrontEnd("Payment declined!");
             }
         }
     }
@@ -89,16 +88,16 @@ public class PaymentBackend {
         @Override
         protected void onPostExecute(Boolean result) {
             if (result) {
-                informFrontEnd("Save success!");
+                notifyFrontEnd("Save success!");
             } else {
-                informFrontEnd("Save failed!");
+                notifyFrontEnd("Save failed!");
             }
         }
     }
 
-    PaymentActivity frontEnd;
+    PaymentFrontEnd frontEnd;
 
-    PaymentBackend(PaymentActivity fe) {
+    PaymentBackend(PaymentFrontEnd fe) {
         frontEnd = fe;
 
         // Set your secret key: remember to change this to your live secret key in production
@@ -106,8 +105,8 @@ public class PaymentBackend {
         Stripe.apiKey = "sk_test_6qfgvcOlBqCvFaakv1URDLgF";
     }
 
-    private void informFrontEnd(CharSequence text) {
-        frontEnd.showMessage(text);
+    private void notifyFrontEnd(CharSequence text) {
+        frontEnd.notify(text);
     }
 
     public void newCustomer(String tokenId) {
@@ -117,7 +116,7 @@ public class PaymentBackend {
     public void charge(int amount, String tokenId) {
         // Check params
         if (amount<100) {
-            informFrontEnd("Transaction amount too small, minimum 100 cents");
+            notifyFrontEnd("Transaction amount too small, minimum 100 cents");
             return;
         }
 

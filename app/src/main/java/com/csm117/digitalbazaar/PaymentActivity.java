@@ -12,10 +12,8 @@ import com.stripe.android.*;
 import com.stripe.android.model.Card;
 import com.stripe.android.model.Token;
 
-import com.google.firebase.database.*;
 
-
-public class PaymentActivity extends AppCompatActivity {
+public class PaymentActivity extends AppCompatActivity implements PaymentFrontEnd {
     PaymentBackend paymentBackend;
 
     @Override
@@ -26,7 +24,7 @@ public class PaymentActivity extends AppCompatActivity {
         paymentBackend = new PaymentBackend(this);
     }
 
-    public void showMessage(CharSequence text) {
+    public void notify(CharSequence text) {
         Context context = getApplicationContext();
         int duration = Toast.LENGTH_SHORT;
         Toast toast = Toast.makeText(context, text, duration);
@@ -49,14 +47,14 @@ public class PaymentActivity extends AppCompatActivity {
         Card card = new Card(cardNumber, cardExpMonth, cardExpYear, cardCCV);
         if (!card.validateCard()) {
             // Show errors
-            showMessage("Invalid Card!");
+            notify("Invalid Card!");
         }
 
         Stripe stripe = new Stripe();
         try {
             stripe.setDefaultPublishableKey("pk_test_PRUasoC2c2VrLqBR4WV1tFwS");
         } catch (Exception e) {
-            showMessage("Error connecting to network!");
+            notify("Error connecting to network!");
         }
         stripe.createToken(
                 card,
@@ -68,7 +66,7 @@ public class PaymentActivity extends AppCompatActivity {
 
                     public void onError(Exception error) {
                         // Show localized error message
-                        showMessage("Error processing credit card!");
+                        PaymentActivity.this.notify("Error processing credit card!");
                     }
                 }
         );
@@ -88,14 +86,14 @@ public class PaymentActivity extends AppCompatActivity {
         Card card = new Card(cardNumber, cardExpMonth, cardExpYear, cardCCV);
         if (!card.validateCard()) {
             // Show errors
-            showMessage("Invalid Card!");
+            notify("Invalid Card!");
         }
 
         Stripe stripe = new Stripe();
         try {
             stripe.setDefaultPublishableKey("pk_test_PRUasoC2c2VrLqBR4WV1tFwS");
         } catch (Exception e) {
-            showMessage("Error connecting to network!");
+            notify("Error connecting to network!");
         }
         stripe.createToken(
                 card,
@@ -107,7 +105,7 @@ public class PaymentActivity extends AppCompatActivity {
 
                     public void onError(Exception error) {
                         // Show localized error message
-                        showMessage("Error processing credit card!");
+                        PaymentActivity.this.notify("Error processing credit card!");
                     }
                 }
         );
