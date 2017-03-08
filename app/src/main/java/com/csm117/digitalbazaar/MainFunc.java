@@ -104,6 +104,9 @@ public class MainFunc extends AppCompatActivity {
 //        intent.putStringArrayListExtra("userIDs", Users);
         String curUser = getIntent().getExtras().getString("userID");
         intent.putExtra("userID", curUser);
+        TextView tv = (TextView) findViewById(R.id.postUserId);
+        String otherUser = tv.getText().toString();
+        intent.putExtra("otheruserID", otherUser);
         startActivity(intent);
     }
 
