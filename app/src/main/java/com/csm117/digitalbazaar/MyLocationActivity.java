@@ -29,7 +29,11 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -77,13 +81,58 @@ public class MyLocationActivity extends AppCompatActivity implements ConnectionC
     private double otherUserLongitude;
 
     private static final String TAG2 = "Latitude";
-    private static final String TAG3 = "Longitutde";
+    private static final String TAG3 = "Longitude";
 
+    private String latitudeString;
+    private String longitudeString;
+
+    private DatabaseReference LatRef;
+    private DatabaseReference LongRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_location);
+
+        String currentUserId = getIntent().getExtras().getString("userID");
+        String currentUserPathLat = "accounts/" + currentUserId + "/location/latitude";
+        FirebaseDatabase.getInstance()
+                .getReference(currentUserPathLat)
+                .setValue(0);
+        String currentUserPathLong = "accounts/" + currentUserId + "/location/longitude";
+        FirebaseDatabase.getInstance()
+                .getReference(currentUserPathLong)
+                .setValue(0);
+
+        //get location data for other user
+        String otherUserId = getIntent().getExtras().getString("otheruserID");
+        String otherUserPathLat = "accounts/" + otherUserId + "/location/latitude";
+        String otherUserPathLong = "accounts/" + otherUserId + "/location/longitude";
+        LatRef = FirebaseDatabase.getInstance().getReference(otherUserPathLat);
+        LongRef = FirebaseDatabase.getInstance().getReference(otherUserPathLong);
+        // Attach a listener to read the data at our location reference
+        LatRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                otherUserLatitude = dataSnapshot.getValue(Double.class);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+//                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
+        LongRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                otherUserLongitude = dataSnapshot.getValue(Double.class);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+//                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
+
+
         // Update values using data stored in the Bundle.
         mRequestingLocationUpdates = true;
         updateValuesFromBundle(savedInstanceState);
@@ -131,15 +180,20 @@ public class MyLocationActivity extends AppCompatActivity implements ConnectionC
         longitude = mCurrentLocation.getLongitude();
         LatLng curLocation = new LatLng(latitude, longitude);
         mMap.addMarker(new MarkerOptions().position(curLocation).title("Current Location"));
+        LatLng otherUserLocation = new LatLng(otherUserLatitude, otherUserLongitude);
+        mMap.addMarker(new MarkerOptions().position(otherUserLocation).title("Other User Location"));
 
-        //other user
-        String otherUserId = getIntent().getExtras().getString("otheruserID");
-        String otherUserPathLat = "accounts/" + otherUserId + "/location/latitude";
-        String latitudeString = FirebaseDatabase.getInstance().getReference(otherUserPathLat).getKey();
-//        otherUserLatitude = ;
-//        private double otherUserLongitude;
-        String otherUserPathLong = "accounts/" + otherUserId + "/location/longitude";
-        String longitudeString = FirebaseDatabase.getInstance().getReference(otherUserPathLong).getKey();
+//        //other user
+//        String otherUserId = getIntent().getExtras().getString("otheruserID");
+//        String otherUserPathLat = "accounts/" + otherUserId + "/location/latitude";
+//        String latitudeString = FirebaseDatabase.getInstance().getReference(otherUserPathLat).getKey();
+////        otherUserLatitude = ;
+////        private double otherUserLongitude;
+//        String otherUserPathLong = "accounts/" + otherUserId + "/location/longitude";
+//        String longitudeString = FirebaseDatabase.getInstance().getReference(otherUserPathLong).getKey();
+
+        latitudeString = String.valueOf(otherUserLatitude);
+        longitudeString = String.valueOf(otherUserLongitude);
         Log.d(TAG2, latitudeString);
         Log.d(TAG3, longitudeString);
         ///////////////////////////////////
