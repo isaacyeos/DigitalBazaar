@@ -9,7 +9,15 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="256dp"
-        android:gravity="center">
+        android:gravity="center"
+        android:weightSum="1">
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="500dp"
+            android:layout_height="0dp"
+            android:src="@mipmap/logo"
+            android:layout_weight="0.94"/>
 
         <com.facebook.login.widget.LoginButton
             android:id="@+id/login_button"
