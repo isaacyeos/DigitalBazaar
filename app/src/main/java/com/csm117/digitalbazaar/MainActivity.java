@@ -83,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
                         // User is signed in
                         findViewById(R.id.login_button).setVisibility(View.GONE);
                         curUser = user.getUid();
+                        Globals.getInstance().userId = user.getUid();
                         String currentUserPath = "accounts/" + curUser;
                         FirebaseDatabase.getInstance()
                                 .getReference(currentUserPath)

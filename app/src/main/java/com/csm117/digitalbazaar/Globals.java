@@ -6,7 +6,7 @@ public class Globals {
     private static Globals instance;
 
     // Global variable
-    public AuthCredential firebaseAuthCredential;
+    String userId;
 
     // Restrict the constructor from being instantiated
     private Globals(){}

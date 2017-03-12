@@ -14,8 +14,8 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
-    <!--<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>-->
 
+    <!-- <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/> -->
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -65,11 +65,11 @@
         </activity>
         <activity android:name=".BlankActivity" />
         <activity android:name=".MainFunc" />
-        <activity android:name=".Posting"/>
+        <activity android:name=".Posting" />
         <activity android:name=".setting" />
         <activity android:name=".ItemView" />
         <activity android:name=".Verfication" />
-        <activity android:name=".ChatMainActivity"/>
+        <activity android:name=".ChatMainActivity" />
 
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -79,9 +79,9 @@
              sign the APK for publishing.
              You can define the keys for the debug and release targets in src/debug/ and src/release/. 
         -->
-        <!--<meta-data-->
-            <!--android:name="com.google.android.geo.API_KEY"-->
-            <!--android:value="@string/google_maps_key" />-->
+        <!-- <meta-data -->
+        <!-- android:name="com.google.android.geo.API_KEY" -->
+        <!-- android:value="@string/google_maps_key" /> -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyA5n8VdozAhcqi8iJGuX0OaIx3LbSd84cE" />
@@ -89,9 +89,9 @@
         <activity android:name=".image" />
         <activity
             android:name=".MyLocationActivity"
-            android:label="@string/title_activity_my_location"
-            android:exported="true">
-        </activity>
+            android:exported="true"
+            android:label="@string/title_activity_my_location"></activity>
+        <activity android:name=".RegisterPaymentInfo"></activity>
     </application>
 
 </manifest>

@@ -1,6 +1,7 @@
 package com.csm117.digitalbazaar;
 
 import android.os.AsyncTask;
+import android.provider.Settings;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -80,7 +81,8 @@ public class PaymentBackend {
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             DatabaseReference payment = database.getReference();
             PaymentInformation p = new PaymentInformation(customerId, tok);
-            payment.child("payment").child(p.id).setValue(p);
+            String user = Globals.getInstance().userId;
+            payment.child("accounts").child(user).child("payments").setValue(p);
 
             return true;
         }
