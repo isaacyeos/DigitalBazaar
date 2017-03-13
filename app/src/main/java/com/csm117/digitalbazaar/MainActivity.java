@@ -27,6 +27,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FacebookAuthCredential;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -64,7 +65,8 @@ public class MainActivity extends AppCompatActivity {
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             FacebookSdk.sdkInitialize(getApplicationContext());
-            setContentView(R.layout.activity_main);
+
+        setContentView(R.layout.activity_main);
 
             // Views
             mStatusTextView = (TextView) findViewById(R.id.status);
@@ -161,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
             {
 //                finishActivity(REQUEST_CODE_LOGIN);
                 signOut();
-                return;
+//                return;
             }
             super.onActivityResult(requestCode, resultCode, data);
 

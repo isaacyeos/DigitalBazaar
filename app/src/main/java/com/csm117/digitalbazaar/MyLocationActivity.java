@@ -49,7 +49,7 @@ public class MyLocationActivity extends AppCompatActivity implements ConnectionC
     /**
      * The desired interval for location updates. Inexact. Updates may be more or less frequent.
      */
-    public static final long UPDATE_INTERVAL_IN_MILLISECONDS = 10000;
+    public static final long UPDATE_INTERVAL_IN_MILLISECONDS = 1000;
 
     /**
      * The fastest rate for active location updates. Exact. Updates will never be more frequent
@@ -169,12 +169,12 @@ public class MyLocationActivity extends AppCompatActivity implements ConnectionC
                 mCurrentLocation = savedInstanceState.getParcelable(LOCATION_KEY);
             }
 
-            updateUI();
+            updateUI_init();
             updateFirebase();
         }
     }
 
-    private void updateUI()
+    private void updateUI_init()
     {
         mMap.clear();
         latitude = mCurrentLocation.getLatitude();
@@ -193,6 +193,27 @@ public class MyLocationActivity extends AppCompatActivity implements ConnectionC
 
         mMap.moveCamera(CameraUpdateFactory.newLatLng(curLocation));
         mMap.moveCamera(CameraUpdateFactory.zoomTo(20));
+    }
+
+    private void updateUI()
+    {
+        mMap.clear();
+        latitude = mCurrentLocation.getLatitude();
+        longitude = mCurrentLocation.getLongitude();
+        LatLng curLocation = new LatLng(latitude, longitude);
+        mMap.addMarker(new MarkerOptions().position(curLocation).title("Current Location"));
+        LatLng otherUserLocation = new LatLng(otherUserLatitude, otherUserLongitude);
+        mMap.addMarker(new MarkerOptions().position(otherUserLocation).title("Other User Location"));
+
+        //---for debugging purposes---
+        latitudeString = String.valueOf(otherUserLatitude);
+        longitudeString = String.valueOf(otherUserLongitude);
+        Log.d(TAG2, latitudeString);
+        Log.d(TAG3, longitudeString);
+        //-----------------------------
+//
+//        mMap.moveCamera(CameraUpdateFactory.newLatLng(curLocation));
+//        mMap.moveCamera(CameraUpdateFactory.zoomTo(20));
     }
 
     private void updateFirebase()
@@ -270,8 +291,8 @@ public class MyLocationActivity extends AppCompatActivity implements ConnectionC
         /**
          * Requests location updates from the FusedLocationApi.
          */
-            // The final argument to {@code requestLocationUpdates()} is a LocationListener
-            // (http://developer.android.com/reference/com/google/android/gms/location/LocationListener.html).
+        // The final argument to {@code requestLocationUpdates()} is a LocationListener
+        // (http://developer.android.com/reference/com/google/android/gms/location/LocationListener.html).
         LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
     }
 
