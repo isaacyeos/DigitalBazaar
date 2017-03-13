@@ -40,12 +40,6 @@ public class PaymentBackend {
                 return false;
             }
 
-            // Also save him to database
-            FirebaseDatabase database = FirebaseDatabase.getInstance();
-            DatabaseReference payment = database.getReference();
-            PaymentInformation p = new PaymentInformation(customerId, "someone");
-            payment.child("payment").child(p.id).setValue(p);
-
             return true;
         }
 
@@ -78,10 +72,18 @@ public class PaymentBackend {
 
             // Save him to database
             FirebaseDatabase database = FirebaseDatabase.getInstance();
-            DatabaseReference payment = database.getReference();
-            PaymentInformation p = new PaymentInformation(customerId, tok);
             String user = Globals.getInstance().userId;
-            payment.child("accounts").child(user).child("payments").setValue(p);
+
+            // Reset the payment info, if there are any
+            DatabaseReference paymentRef = database.getReference()
+                    .child("accounts").child(user)
+                    .child("payment");
+            paymentRef.setValue(0);
+
+            // Now add the new info
+            Map<String, String> paymentData = new HashMap<String, String>();
+            paymentData.put("id", customerId);
+            paymentRef.setValue(paymentData);
 
             return true;
         }
