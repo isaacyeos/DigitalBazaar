@@ -1,7 +1,6 @@
 package com.csm117.digitalbazaar;
 
 import android.os.AsyncTask;
-import android.provider.Settings;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -53,9 +52,9 @@ public class PaymentBackend {
         @Override
         protected void onPostExecute(Boolean result) {
             if (result) {
-                notifyFrontEnd("Payment success!");
+                notifyFrontEnd("Payment success!", true);
             } else {
-                notifyFrontEnd("Payment declined!");
+                notifyFrontEnd("Payment declined!", false);
             }
         }
     }
@@ -90,9 +89,9 @@ public class PaymentBackend {
         @Override
         protected void onPostExecute(Boolean result) {
             if (result) {
-                notifyFrontEnd("Save success!");
+                notifyFrontEnd("Save success!", true);
             } else {
-                notifyFrontEnd("Save failed!");
+                notifyFrontEnd("Save failed!", false);
             }
         }
     }
@@ -107,8 +106,8 @@ public class PaymentBackend {
         Stripe.apiKey = "sk_test_6qfgvcOlBqCvFaakv1URDLgF";
     }
 
-    private void notifyFrontEnd(CharSequence text) {
-        frontEnd.notify(text);
+    private void notifyFrontEnd(CharSequence text, boolean success) {
+        frontEnd.notify(text, success);
     }
 
     public void newCustomer(String tokenId) {
@@ -118,7 +117,7 @@ public class PaymentBackend {
     public void charge(int amount, String tokenId) {
         // Check params
         if (amount<100) {
-            notifyFrontEnd("Transaction amount too small, minimum 100 cents");
+            notifyFrontEnd("Transaction amount too small, minimum 100 cents", true);
             return;
         }
 

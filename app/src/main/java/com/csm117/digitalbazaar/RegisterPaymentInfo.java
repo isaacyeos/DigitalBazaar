@@ -23,12 +23,17 @@ public class RegisterPaymentInfo extends AppCompatActivity implements PaymentFro
         paymentBackend = new PaymentBackend(this);
     }
 
-    public void notify(CharSequence text) {
+    public void notify(CharSequence text, boolean success) {
         Context context = getApplicationContext();
         int duration = Toast.LENGTH_SHORT;
         Toast toast = Toast.makeText(context, text, duration);
         toast.show();
+        if (success) {
+            finish();
+            return;
+        }
     }
+
 
     public void savePaymentInfo(View view) {
         // Get form info
@@ -44,14 +49,14 @@ public class RegisterPaymentInfo extends AppCompatActivity implements PaymentFro
         Card card = new Card(cardNumber, cardExpMonth, cardExpYear, cardCCV);
         if (!card.validateCard()) {
             // Show errors
-            notify("Invalid Card!");
+            notify("Invalid Card!", true);
         }
 
         Stripe stripe = new Stripe();
         try {
             stripe.setDefaultPublishableKey("pk_test_PRUasoC2c2VrLqBR4WV1tFwS");
         } catch (Exception e) {
-            notify("Error connecting to network!");
+            notify("Error connecting to network!", true);
         }
         stripe.createToken(
                 card,
@@ -63,7 +68,7 @@ public class RegisterPaymentInfo extends AppCompatActivity implements PaymentFro
 
                     public void onError(Exception error) {
                         // Show localized error message
-                        RegisterPaymentInfo.this.notify("Error processing credit card!");
+                        RegisterPaymentInfo.this.notify("Error processing credit card!", true);
                     }
                 }
         );

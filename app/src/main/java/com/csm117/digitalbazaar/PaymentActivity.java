@@ -24,7 +24,7 @@ public class PaymentActivity extends AppCompatActivity implements PaymentFrontEn
         paymentBackend = new PaymentBackend(this);
     }
 
-    public void notify(CharSequence text) {
+    public void notify(CharSequence text, boolean success) {
         Context context = getApplicationContext();
         int duration = Toast.LENGTH_SHORT;
         Toast toast = Toast.makeText(context, text, duration);
@@ -47,14 +47,14 @@ public class PaymentActivity extends AppCompatActivity implements PaymentFrontEn
         Card card = new Card(cardNumber, cardExpMonth, cardExpYear, cardCCV);
         if (!card.validateCard()) {
             // Show errors
-            notify("Invalid Card!");
+            notify("Invalid Card!", true);
         }
 
         Stripe stripe = new Stripe();
         try {
             stripe.setDefaultPublishableKey("pk_test_PRUasoC2c2VrLqBR4WV1tFwS");
         } catch (Exception e) {
-            notify("Error connecting to network!");
+            notify("Error connecting to network!", true);
         }
         stripe.createToken(
                 card,
@@ -66,7 +66,7 @@ public class PaymentActivity extends AppCompatActivity implements PaymentFrontEn
 
                     public void onError(Exception error) {
                         // Show localized error message
-                        PaymentActivity.this.notify("Error processing credit card!");
+                        PaymentActivity.this.notify("Error processing credit card!", true);
                     }
                 }
         );
@@ -86,14 +86,14 @@ public class PaymentActivity extends AppCompatActivity implements PaymentFrontEn
         Card card = new Card(cardNumber, cardExpMonth, cardExpYear, cardCCV);
         if (!card.validateCard()) {
             // Show errors
-            notify("Invalid Card!");
+            notify("Invalid Card!", true);
         }
 
         Stripe stripe = new Stripe();
         try {
             stripe.setDefaultPublishableKey("pk_test_PRUasoC2c2VrLqBR4WV1tFwS");
         } catch (Exception e) {
-            notify("Error connecting to network!");
+            notify("Error connecting to network!", true);
         }
         stripe.createToken(
                 card,
@@ -105,7 +105,7 @@ public class PaymentActivity extends AppCompatActivity implements PaymentFrontEn
 
                     public void onError(Exception error) {
                         // Show localized error message
-                        PaymentActivity.this.notify("Error processing credit card!");
+                        PaymentActivity.this.notify("Error processing credit card!", true);
                     }
                 }
         );
