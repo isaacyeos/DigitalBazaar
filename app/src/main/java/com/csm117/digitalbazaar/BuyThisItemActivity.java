@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,28 +15,30 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class BuyThisItemActivity extends AppCompatActivity implements PaymentFrontEnd {
-    DatabaseReference accountReference;
+    DatabaseReference paymentsReference;
     BuyThisItemActivity me;
+    PaymentBackend paymentBackend;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buy_this_item);
         me = this;
+        paymentBackend = new PaymentBackend(this);
 
         // Find out if this user already have payment info
-        String id = getIntent().getExtras().getString("userID");
-        String path = "accounts/" + id;
-        accountReference = FirebaseDatabase.getInstance().getReference(path);
+        final String userId = getIntent().getExtras().getString("userID");
+        String path = "payments/";
+        paymentsReference = FirebaseDatabase.getInstance().getReference(path);
 
         // Get price info
         String amountString = getIntent().getExtras().getString("amount");
         int amount = Integer.parseInt(amountString);
 
-        accountReference.addListenerForSingleValueEvent(new ValueEventListener() {
+        paymentsReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.hasChildren() && dataSnapshot.hasChild("payment")) {
+                if (dataSnapshot.hasChildren() && dataSnapshot.hasChild(userId)) {
                     // Has payment info, buy
                     finish();
                     return;
@@ -61,5 +64,9 @@ public class BuyThisItemActivity extends AppCompatActivity implements PaymentFro
             finish();
             return;
         }
+    }
+
+    public void buy(View view) {
+
     }
 }

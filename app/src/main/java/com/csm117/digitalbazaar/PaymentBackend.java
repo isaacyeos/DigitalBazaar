@@ -74,16 +74,13 @@ public class PaymentBackend {
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             String user = Globals.getInstance().userId;
 
-            // Reset the payment info, if there are any
-            DatabaseReference paymentRef = database.getReference()
-                    .child("accounts").child(user)
-                    .child("payment");
-            paymentRef.setValue(0);
-
-            // Now add the new info
+            // Add the info
+            DatabaseReference userRef = database.getReference()
+                    .child("payments").child(user);
             Map<String, String> paymentData = new HashMap<String, String>();
-            paymentData.put("id", customerId);
-            paymentRef.setValue(paymentData);
+            paymentData.put("userId", user);
+            paymentData.put("paymentId", customerId);
+            userRef.setValue(paymentData);
 
             return true;
         }
