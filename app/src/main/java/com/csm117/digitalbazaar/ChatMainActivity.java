@@ -13,6 +13,7 @@ import com.firebase.ui.database.FirebaseListAdapter;
 import android.text.format.DateFormat;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 
 
@@ -38,7 +39,11 @@ public class ChatMainActivity extends AppCompatActivity {
 
         currentUserId = curUser;
         otherUserId = otherUser;
-        conversationId = "conv-id-" + currentUserId + "-" + otherUserId;
+        String temp = currentUserId + otherUserId;
+        char[] chars = temp.toCharArray();
+        Arrays.sort(chars);
+        String sorted = new String(chars);
+        conversationId = "conv-id-" + sorted;
 
         // Create new chat thread for the two users. Store thread id in each user's account info
         String currentUserPath = "accounts/" + currentUserId + "/conversations/" + conversationId;
@@ -46,10 +51,10 @@ public class ChatMainActivity extends AppCompatActivity {
                         .getReference(currentUserPath)
                         .setValue(new Date().getTime());
 
-        String otherUserPath = "accounts/" + otherUserId + "/conversations/" + conversationId;
-        FirebaseDatabase.getInstance()
-                .getReference(otherUserPath)
-                .setValue(new Date().getTime());
+//        String otherUserPath = "accounts/" + otherUserId + "/conversations/" + conversationId;
+//        FirebaseDatabase.getInstance()
+//                .getReference(otherUserPath)
+//                .setValue(new Date().getTime());
 
         chatPath = "messages/" + conversationId;
 
