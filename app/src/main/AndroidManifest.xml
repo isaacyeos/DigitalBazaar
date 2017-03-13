@@ -90,8 +90,9 @@
         <activity
             android:name=".MyLocationActivity"
             android:exported="true"
-            android:label="@string/title_activity_my_location"></activity>
-        <activity android:name=".RegisterPaymentInfo"></activity>
+            android:label="@string/title_activity_my_location" />
+        <activity android:name=".RegisterPaymentInfo" />
+        <activity android:name=".BuyThisItemActivity"></activity>
     </application>
 
 </manifest>

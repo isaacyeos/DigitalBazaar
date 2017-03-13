@@ -120,6 +120,31 @@ public class MainFunc extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void clickButtonGoToBuy(View view) {
+        Intent intent = new Intent(this, BuyThisItemActivity.class);
+
+        String curUser = getIntent().getExtras().getString("userID");
+        intent.putExtra("userID", curUser);
+
+        TextView tv = (TextView) findViewById(R.id.postUserId);
+        String otherUser = tv.getText().toString();
+        intent.putExtra("otheruserID", otherUser);
+
+        tv = (TextView) findViewById(R.id.postTitle);
+        String item = tv.getText().toString();
+        intent.putExtra("item", item);
+
+        tv = (TextView) findViewById(R.id.postPrice);
+        String priceInDollars = tv.getText().toString();
+        int dollars = Integer.parseInt(priceInDollars);
+        int cents = dollars*100;
+        String priceInCents = Integer.toString(cents);
+        intent.putExtra("amount", priceInCents);
+
+
+        startActivity(intent);
+    }
+
     private void displayAllPosts() {
         ListView listOfPosts = (ListView)findViewById(R.id.list_of_posts);
 
