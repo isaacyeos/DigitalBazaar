@@ -8,28 +8,22 @@ import com.stripe.Stripe;
 import com.stripe.model.Charge;
 import com.stripe.model.Customer;
 
+import java.text.NumberFormat;
+import java.util.Locale;
 import java.util.Map;
 import java.util.HashMap;
 
 public class PaymentBackend {
     private class ChargeParams {
-        String tokenId;
+        String customerId;
         int amount;     // in cents
     }
-    private class ChargeTask extends AsyncTask<ChargeParams, Void, Boolean> {
-        protected Boolean doInBackground(ChargeParams... params) {
-            String tok = params[0].tokenId;
+    private class ChargeTask extends AsyncTask<ChargeParams, Void, Integer> {
+        protected Integer doInBackground(ChargeParams... params) {
+            String customerId = params[0].customerId;
             int amount = params[0].amount;
 
-            // Create a Customer:
-            Map<String, Object> customerParams = new HashMap<String, Object>();
-            customerParams.put("email", "cxv@g.ucla.edu");
-            customerParams.put("source", tok);
-            String customerId;
             try {
-                Customer customer = Customer.create(customerParams);
-                customerId = customer.getId();
-
                 // Charge the Customer instead of the card:
                 Map<String, Object> chargeParams = new HashMap<String, Object>();
                 chargeParams.put("amount", amount);
@@ -37,16 +31,24 @@ public class PaymentBackend {
                 chargeParams.put("customer", customerId);
                 Charge charge = Charge.create(chargeParams);
             } catch (Exception e) {
-                return false;
+                System.out.println("Debug info:");
+                System.out.println(e);
+                System.out.println(customerId);
+                System.out.println(amount);
+                return -1;
             }
 
-            return true;
+            return amount;
         }
 
         @Override
-        protected void onPostExecute(Boolean result) {
-            if (result) {
-                notifyFrontEnd("Payment success!", true);
+        protected void onPostExecute(Integer result) {
+            if (result>0) {
+                long amount = result;
+                NumberFormat n = NumberFormat.getCurrencyInstance(Locale.US);
+                String s = n.format(amount / 100.0);
+                CharSequence msg = "Payment success! Paying $" + s;
+                notifyFrontEnd(msg, true);
             } else {
                 notifyFrontEnd("Payment declined!", false);
             }
@@ -113,7 +115,7 @@ public class PaymentBackend {
         new NewCustomerTask().execute(tokenId);
     }
 
-    public void charge(int amount, String tokenId) {
+    public void charge(int amount, String customerId) {
         // Check params
         if (amount<100) {
             notifyFrontEnd("Transaction amount too small, minimum 100 cents", true);
@@ -122,7 +124,7 @@ public class PaymentBackend {
 
         ChargeParams params = new ChargeParams();
         params.amount = amount;
-        params.tokenId = tokenId;
+        params.customerId = customerId;
         new ChargeTask().execute(params);
     }
 
