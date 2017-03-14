@@ -49,14 +49,15 @@ public class RegisterPaymentInfo extends AppCompatActivity implements PaymentFro
         Card card = new Card(cardNumber, cardExpMonth, cardExpYear, cardCCV);
         if (!card.validateCard()) {
             // Show errors
-            notify("Invalid Card!", true);
+            notify("Invalid Card!", false);
+            return;
         }
 
         Stripe stripe = new Stripe();
         try {
             stripe.setDefaultPublishableKey("pk_test_PRUasoC2c2VrLqBR4WV1tFwS");
         } catch (Exception e) {
-            notify("Error connecting to network!", true);
+            notify("Error connecting to network!", false);
         }
         stripe.createToken(
                 card,
@@ -68,7 +69,7 @@ public class RegisterPaymentInfo extends AppCompatActivity implements PaymentFro
 
                     public void onError(Exception error) {
                         // Show localized error message
-                        RegisterPaymentInfo.this.notify("Error processing credit card!", true);
+                        RegisterPaymentInfo.this.notify("Error processing credit card!", false);
                     }
                 }
         );

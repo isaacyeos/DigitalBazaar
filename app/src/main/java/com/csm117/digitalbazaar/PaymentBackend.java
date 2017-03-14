@@ -47,7 +47,7 @@ public class PaymentBackend {
                 long amount = result;
                 NumberFormat n = NumberFormat.getCurrencyInstance(Locale.US);
                 String s = n.format(amount / 100.0);
-                CharSequence msg = "Payment success! Paying $" + s;
+                CharSequence msg = "Payment success! Paying " + s;
                 notifyFrontEnd(msg, true);
             } else {
                 notifyFrontEnd("Payment declined!", false);

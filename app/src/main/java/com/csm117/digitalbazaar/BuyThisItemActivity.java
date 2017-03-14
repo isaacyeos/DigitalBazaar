@@ -27,20 +27,31 @@ public class BuyThisItemActivity extends AppCompatActivity implements PaymentFro
         paymentBackend = new PaymentBackend(this);
 
         final String userId = getIntent().getExtras().getString("userID");
+        final String otherUserId = getIntent().getExtras().getString("otheruserID");
         String path = "payments/";
         paymentsReference = FirebaseDatabase.getInstance().getReference(path);
 
         final int amount = Integer.parseInt(getIntent().getExtras().getString("amount"));
 
+
         paymentsReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Find out if this user has payment info
-                if (dataSnapshot.hasChildren() && dataSnapshot.hasChild(userId)) {
-                    // Has payment info, buy
+                if (userId.equals(otherUserId)) {
+                    me.notify("Hey, you cannot buy your own stuff", true);
+                }
+                else if (dataSnapshot.hasChildren() && dataSnapshot.hasChild(userId) && dataSnapshot.hasChild(otherUserId)) {
+                    me.notifyWithoutFinish("Seller have a credit card on file, but we'll take everything anyway.");
                     String paymentId = dataSnapshot.child(userId).child("paymentId").getValue(String.class);
                     paymentBackend.charge(amount, paymentId);
-                } else {
+                } else if (dataSnapshot.hasChildren() && dataSnapshot.hasChild(userId)) {
+                    me.notifyWithoutFinish("Seller doesn't have a credit card on file, we'll take everything.");
+                    String paymentId = dataSnapshot.child(userId).child("paymentId").getValue(String.class);
+                    paymentBackend.charge(amount, paymentId);
+                }
+                else
+                    {
                     // No payment info, redirect to register payment info
                     Intent intent = new Intent(me, RegisterPaymentInfo.class);
                     startActivity(intent);
@@ -53,11 +64,15 @@ public class BuyThisItemActivity extends AppCompatActivity implements PaymentFro
         });
     }
 
-    public void notify(CharSequence text, boolean success) {
+    private void notifyWithoutFinish(CharSequence text) {
         Context context = getApplicationContext();
         int duration = Toast.LENGTH_SHORT;
         Toast toast = Toast.makeText(context, text, duration);
         toast.show();
+    }
+
+    public void notify(CharSequence text, boolean success) {
+        notifyWithoutFinish(text);
         finish();
         return;
     }
