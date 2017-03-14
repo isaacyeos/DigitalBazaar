@@ -64,8 +64,9 @@
         android:layout_width="match_parent"
         android:layout_height="500dp"
         android:layout_below="@+id/Posting"
-        android:paddingBottom="10dp"
-        android:paddingTop="10dp"
-        android:transcriptMode="normal"/>
+        android:divider="@drawable/border"
+        android:background="@drawable/border"
+        android:dividerHeight="2dp"
+        />
 
 </RelativeLayout>
