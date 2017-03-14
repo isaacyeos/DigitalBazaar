@@ -1,0 +1,14 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent" android:layout_height="match_parent">
+
+
+    <TextView
+        android:text="Message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/chat"
+        android:onClick="clickButtonGoToChat"
+        android:backgroundTint="@android:color/holo_orange_light"
+        android:layout_weight="0.05"/>
+
+</RelativeLayout>

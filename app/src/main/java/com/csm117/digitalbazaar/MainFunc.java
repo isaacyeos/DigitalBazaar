@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -41,6 +42,7 @@ public class MainFunc extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_func);
+
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
 
@@ -79,6 +81,13 @@ public class MainFunc extends AppCompatActivity {
 //            }
 //        });
 
+    }
+    //to see the list of available conversations
+    public void clickButtonGoToListOfChats(View view) {
+        Intent intent = new Intent(this, ListOfChats.class);
+        String curUser = getIntent().getExtras().getString("userID");
+        intent.putExtra("userID", curUser);
+        startActivity(intent);
     }
 
     /** Called when the user clicks the GoToPosintg button */

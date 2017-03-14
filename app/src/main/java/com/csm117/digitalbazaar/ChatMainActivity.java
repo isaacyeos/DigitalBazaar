@@ -46,10 +46,13 @@ public class ChatMainActivity extends AppCompatActivity {
         conversationId = "conv-id-" + sorted;
 
         // Create new chat thread for the two users. Store thread id in each user's account info
-        String currentUserPath = "accounts/" + currentUserId + "/conversations/" + conversationId;
+        String currentUserPath = "accounts/" + currentUserId + "/conversations/" + conversationId + "/other_user";
+//        FirebaseDatabase.getInstance()
+//                        .getReference(currentUserPath)
+//                        .setValue(new Date().getTime());
         FirebaseDatabase.getInstance()
                         .getReference(currentUserPath)
-                        .setValue(new Date().getTime());
+                        .setValue(otherUserId);
 
 //        String otherUserPath = "accounts/" + otherUserId + "/conversations/" + conversationId;
 //        FirebaseDatabase.getInstance()
