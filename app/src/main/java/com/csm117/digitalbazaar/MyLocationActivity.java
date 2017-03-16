@@ -96,14 +96,16 @@ public class MyLocationActivity extends AppCompatActivity implements ConnectionC
         setContentView(R.layout.activity_my_location);
 
         String currentUserId = getIntent().getExtras().getString("userID");
-        String currentUserPathLat = "accounts/" + currentUserId + "/location/latitude";
-        FirebaseDatabase.getInstance()
-                .getReference(currentUserPathLat)
-                .setValue(0);
-        String currentUserPathLong = "accounts/" + currentUserId + "/location/longitude";
-        FirebaseDatabase.getInstance()
-                .getReference(currentUserPathLong)
-                .setValue(0);
+
+        //moved to MainActivity so that map won't crash
+//        String currentUserPathLat = "accounts/" + currentUserId + "/location/latitude";
+//        FirebaseDatabase.getInstance()
+//                .getReference(currentUserPathLat)
+//                .setValue(0);
+//        String currentUserPathLong = "accounts/" + currentUserId + "/location/longitude";
+//        FirebaseDatabase.getInstance()
+//                .getReference(currentUserPathLong)
+//                .setValue(0);
 
         //get location data for other user
         String otherUserId = getIntent().getExtras().getString("otheruserID");

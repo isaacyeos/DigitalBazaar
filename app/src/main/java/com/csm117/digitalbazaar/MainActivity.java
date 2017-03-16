@@ -86,10 +86,19 @@ public class MainActivity extends AppCompatActivity {
                         findViewById(R.id.login_button).setVisibility(View.GONE);
                         curUser = user.getUid();
                         Globals.getInstance().userId = user.getUid();
+
+                        //put a value into location fields in Firebase so app doesn't crash when user opens Maps for the first time
                         String currentUserPath = "accounts/" + curUser;
                         FirebaseDatabase.getInstance()
                                 .getReference(currentUserPath)
                                 .setValue(new Date().getTime());
+                        String currentUserPathLat = "accounts/" + curUser + "/location/latitude";
+                        FirebaseDatabase.getInstance().getReference(currentUserPathLat).setValue(0);
+                        String currentUserPathLong = "accounts/" + curUser + "/location/longitude";
+                        FirebaseDatabase.getInstance().getReference(currentUserPathLong).setValue(0);
+                        ///////////////////////////////////
+
+
                         Log.d(TAG, "onAuthStateChanged:signed_in:" + curUser);
                         //upon successful login direct to payment page
                         goToDashBoard();
