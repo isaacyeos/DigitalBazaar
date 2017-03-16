@@ -110,6 +110,16 @@ public class MainFunc extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void clickButtonGoToMyMessages(View view) {
+        // Do something in response to button
+        Intent intent = new Intent(this, ChatAllMessagesActivity.class);
+
+        String curUser = getIntent().getExtras().getString("userID");
+        intent.putExtra("userID", curUser);
+
+        startActivity(intent);
+    }
+
     public void clickButtonGoToMaps(View view) {
         Intent intent = new Intent(this, MyLocationActivity.class);
         String curUser = getIntent().getExtras().getString("userID");

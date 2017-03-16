@@ -89,7 +89,8 @@
             android:exported="true"
             android:label="@string/title_activity_my_location" />
         <activity android:name=".RegisterPaymentInfo" />
-        <activity android:name=".BuyThisItemActivity"></activity>
+        <activity android:name=".BuyThisItemActivity" />
+        <activity android:name=".ChatAllMessagesActivity"></activity>
     </application>
 
 </manifest>
